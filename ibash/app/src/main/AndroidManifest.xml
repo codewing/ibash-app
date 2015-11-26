@@ -15,7 +15,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+        android:theme="@style/Theme.codewing.Dark" >
         <activity
             android:name="de.codewing.ibash.SplashActivity"
             android:label="@string/app_name" >
@@ -28,8 +28,6 @@
         <activity android:name="MainActivity" >
         </activity>
         <activity android:name="CommentActivity" >
-        </activity>
-        <activity android:name="de.codewing.fragments.SettingsActivity" >
         </activity>
 
     </application>

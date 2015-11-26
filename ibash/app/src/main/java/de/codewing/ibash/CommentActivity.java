@@ -1,10 +1,11 @@
 package de.codewing.ibash;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,7 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CommentActivity extends Activity {
+public class CommentActivity extends AppCompatActivity {
 	ListView lv;
 	CommentAdapter commentadapter;
 	Activity activity;
@@ -45,7 +46,7 @@ public class CommentActivity extends Activity {
 		
 		updateComments(getIntent().getExtras().getInt("key_quote_id"));
 
-		ActionBar actionbar = getActionBar();
+		ActionBar actionbar = getSupportActionBar();
 		actionbar.setHomeButtonEnabled(true);
 		actionbar.setTitle("#"+getIntent().getExtras().getInt("key_quote_id"));
 		

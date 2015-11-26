@@ -1,6 +1,5 @@
 package de.codewing.fragments;
 
-import de.codewing.ibash.R;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import de.codewing.ibash.R;
  
 public class AboutFragment extends Fragment implements OnClickListener{
     @Override

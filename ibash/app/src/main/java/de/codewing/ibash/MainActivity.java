@@ -1,6 +1,5 @@
 package de.codewing.ibash;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -20,10 +19,10 @@ import de.codewing.fragments.AboutFragment;
 import de.codewing.fragments.BestFragment;
 import de.codewing.fragments.FavouritesFragment;
 import de.codewing.fragments.NewFragment;
+import de.codewing.fragments.PreferenceFragment;
 import de.codewing.fragments.QueueFragment;
 import de.codewing.fragments.RandomFragment;
 import de.codewing.fragments.SearchFragment;
-import de.codewing.fragments.SettingsActivity;
  
 public class MainActivity extends AppCompatActivity {
  
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment fragment_queue = new QueueFragment();
     Fragment fragment_favourites = new FavouritesFragment();
     Fragment fragment_about = new AboutFragment();
+    Fragment fragment_settings = new PreferenceFragment();
     
     //handler for settings display bug
     int lastItem = 0;
@@ -175,8 +175,7 @@ public class MainActivity extends AppCompatActivity {
             ft.replace(R.id.content_frame, fragment_favourites);
             break;
         case 6:{
-            Intent settings = new Intent(this, SettingsActivity.class);
-            startActivity(settings);
+            ft.replace(R.id.content_frame, fragment_settings);
         }break;
         case 7:
             ft.replace(R.id.content_frame, fragment_about);

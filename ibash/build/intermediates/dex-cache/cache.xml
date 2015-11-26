@@ -2,39 +2,46 @@
 <items version="2" >
 
     <item
-        jar="D:\Coding\AndroidProjects\ibash\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jar="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\exploded-aar\com.android.support\preference-v7\23.1.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="D:\Coding\AndroidProjects\ibash\app\build\intermediates\pre-dexed\debug\classes-58b112b038ba5a8e8dad892be07f41ee02385d06.jar" />
+        sha1="f6710ac076a15f4a754fc86783ff5ba447064a9e">
+        <dex dex="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\pre-dexed\debug\classes-1bf18661038c00b577558aabca1819291382764b.jar" />
     </item>
     <item
-        jar="G:\Users\codewing\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jar="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="D:\Coding\AndroidProjects\ibash\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-551971f1c973de6876f1248d4d59a5963192c015.jar" />
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\pre-dexed\debug\classes-5fdb5591ab712af142b3af394267b2da4c7e6777.jar" />
     </item>
     <item
-        jar="D:\Coding\AndroidProjects\ibash\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="D:\Coding\AndroidProjects\ibash\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-289919266686508e8b6edc3341abfca882b2a410.jar" />
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-ebad303405f000e5f611e68b8da8a560bea19d9c.jar" />
     </item>
     <item
-        jar="D:\Coding\AndroidProjects\ibash\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jar="G:\Users\codewing\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="D:\Coding\AndroidProjects\ibash\app\build\intermediates\pre-dexed\debug\classes-73be2fd8b5b1babdcdd2a1562540da695c07698a.jar" />
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-bedd32a89a50a6c312c4c517b0bf7e87a5f93cf9.jar" />
     </item>
     <item
-        jar="G:\Users\codewing\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.5\686c608d1805b6d4d425ec4459e88164ffc85870\gson-2.5.jar"
+        jar="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="686c608d1805b6d4d425ec4459e88164ffc85870">
-        <dex dex="D:\Coding\AndroidProjects\ibash\app\build\intermediates\pre-dexed\debug\gson-2.5-6738e01d66aa405acd00c3f1996ea427d2061797.jar" />
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\pre-dexed\debug\classes-b0a4ae8f8a8f5f1ba41b5790f2f6a39c304a66d4.jar" />
+    </item>
+    <item
+        jar="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="D:\Coding\AndroidProjects\ibash_project\ibash\app\build\intermediates\pre-dexed\debug\classes-0f93bd324fd37e20d6b3d5ecd90e38908e115001.jar" />
     </item>
 
 </items>
