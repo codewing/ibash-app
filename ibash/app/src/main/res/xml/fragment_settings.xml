@@ -34,6 +34,7 @@
         <ListPreference
             android:key="pref_key_home_fragment"
             android:title="@string/pref_title_home_fragment"
+            android:summary="@string/pref_summary_home_fragment"
             android:defaultValue="true"
             android:entries="@array/HomeEntries"
             android:entryValues="@array/HomeValues"/>

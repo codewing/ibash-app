@@ -72,6 +72,8 @@
     
     <string name="pref_title_misc">Anderes</string>
     <string name="pref_title_autostart">Autostart</string>
+    <string name="pref_title_home_fragment">Haupt-Tab</string>
+    <string name="pref_summary_home_fragment">Wähle den Tab in den gestartet werden soll</string>
     <string name="pref_summary_autostart">die App startet direkt.</string>
     
     <!-- About -->

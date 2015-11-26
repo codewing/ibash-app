@@ -73,6 +73,7 @@
     <string name="pref_title_misc">miscellaneous</string>
     <string name="pref_title_autostart">Autostart</string>
     <string name="pref_title_home_fragment">Home</string>
+    <string name="pref_summary_home_fragment">Select the home view of the app</string>
     <string name="pref_summary_autostart">Start the app without clicking on connect</string>
     
     <!-- About -->
