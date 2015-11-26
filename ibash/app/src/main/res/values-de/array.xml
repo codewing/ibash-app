@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="HomeEntries">
+        <item>Neu</item>
+        <item>Beste</item>
+        <item>Zufall</item>
+        <item>Suche</item>
+        <item>Warteschlange</item>
+        <item>Favoriten</item>
+    </string-array>
+
+    <string-array name="HomeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>

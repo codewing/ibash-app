@@ -21,7 +21,7 @@ public class SplashActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 
-		// Listener hinzuf�gen
+		// Listener hinzufügen
 		Button connect = (Button) findViewById(R.id.button_splash_connect);
 		connect.setOnClickListener(this);
 		Button quit = (Button) findViewById(R.id.button_splash_quit);

@@ -1,14 +1,17 @@
 package de.codewing.ibash;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +28,7 @@ import de.codewing.fragments.RandomFragment;
 import de.codewing.fragments.SearchFragment;
  
 public class MainActivity extends AppCompatActivity {
- 
+
     // Declare Variables
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
@@ -112,9 +115,17 @@ public class MainActivity extends AppCompatActivity {
         };
  
         mDrawerLayout.setDrawerListener(mDrawerToggle);
- 
+
+        //get last state
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(this);
         if (savedInstanceState == null) {
-            selectItem(0);
+            //fresh start of the app
+            lastItem = Integer.parseInt(sharedPref.getString("pref_key_home_fragment", "0"));
+            selectItem(lastItem);
+        }else{
+            //orientation changes
+            selectItem(sharedPref.getInt("currently_selected_fragment",0));
         }
     }
  
@@ -140,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position,
                 long id) {
             selectItem(position);
-            if(position != 6)
-            	lastItem = position;
         }
     }
  
@@ -149,7 +158,11 @@ public class MainActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 		selectItem(lastItem);
-	}
+        Log.d("main", "orientation changed");
+    }
+
+
+
 
 	private void selectItem(int position) {
 		
@@ -186,7 +199,12 @@ public class MainActivity extends AppCompatActivity {
         }break;
         }
         ft.commit();
+        lastItem = position;
         mDrawerList.setItemChecked(position, true);
+
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        sharedPref.edit().putInt("currently_selected_fragment", position).commit();
  
         // Get the title followed by the position
         setTitle(title[position]);
