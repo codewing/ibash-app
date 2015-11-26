@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle mDrawerToggle;
     MenuListAdapter mMenuAdapter;
     String[] title;
-    String[] subtitle;
     int[] icon;
     Fragment fragment_new = new NewFragment();
     Fragment fragment_best = new BestFragment();
@@ -65,12 +64,9 @@ public class MainActivity extends AppCompatActivity {
  
         // Generate title
         title = new String[] { r.getString(R.string.menu_new), r.getString(R.string.menu_best), r.getString(R.string.menu_random), r.getString(R.string.menu_search), r.getString(R.string.menu_queue), r.getString(R.string.menu_favourites), r.getString(R.string.menu_settings), r.getString(R.string.menu_about), r.getString(R.string.menu_quit) };
- 
-        // Generate subtitle
-        subtitle = new String[] { r.getString(R.string.menu_new_sub), r.getString(R.string.menu_best_sub), r.getString(R.string.menu_random_sub), r.getString(R.string.menu_search_sub), r.getString(R.string.menu_queue_sub), r.getString(R.string.menu_favourites_sub), r.getString(R.string.menu_settings_sub), r.getString(R.string.menu_about_sub), r.getString(R.string.menu_quit_sub) };
- 
+
         // Generate icon
-        icon = new int[] {R.drawable.action_new, R.drawable.action_best, R.drawable.action_random, R.drawable.action_search, R.drawable.action_queue, R.drawable.action_favourites,R.drawable.action_settings, R.drawable.action_about, R.drawable.action_quit };
+        icon = new int[] {R.drawable.ic_plus_one, R.drawable.ic_star, R.drawable.ic_dice, R.drawable.ic_magnify, R.drawable.ic_image_filter_none, R.drawable.ic_heart,R.drawable.ic_settings, R.drawable.ic_information_outline, R.drawable.ic_power };
  
         // Locate DrawerLayout in drawer_main.xml
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -84,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 GravityCompat.START);
  
         // Pass string arrays to MenuListAdapter
-        mMenuAdapter = new MenuListAdapter(MainActivity.this, title, subtitle,
-                icon);
+        mMenuAdapter = new MenuListAdapter(MainActivity.this, title, icon);
  
         // Set the MenuListAdapter to the ListView
         mDrawerList.setAdapter(mMenuAdapter);
