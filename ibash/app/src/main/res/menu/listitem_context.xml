@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/context_like" android:title="@string/plus"></item>
+    <item android:id="@+id/context_dislike" android:title="@string/minus"></item>
+    <item android:id="@+id/context_share" android:title="@string/share"></item>
+    <item android:id="@+id/context_addtofavi" android:title="@string/add_to_favi"></item>
+</menu>

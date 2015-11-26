@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ibash</string>
+    <string name="action_settings">Einstellungen</string>
+    
+    <!-- ListView_Extention Buttons + Messages -->
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="share">Teilen</string>
+    <string name="add_to_favi">zu den Favoriten</string>
+    <string name="remove_from_favi">von den Favoriten entfernen</string>
+    <string name="context_header">Aktion wählen:</string>
+    <string name="shared_via">-via ibash von codewing.de</string>
+    
+    <string name="database_added">Erfolgreich zu den Favoriten hinzugefügt</string>
+   	<string name="database_already_added">Dieses Zitat ist bereits in den Favoriten!</string>
+   	<string name="rating_success">Erfolgreich bewertet!</string>
+   	<string name="already_rated">Du hast dieses Zitat bereits bewertet!</string>
+
+    <!-- SpashActivity -->
+    <string name="splash_new_features"><u>Neue Features:</u></string>
+    <string name="splash_new_features_list">- 100% neuer Code! \n- keine weißer Ladebildschirm mehr</string>
+    <string name="splash_start">Start</string>
+    <string name="splash_quit">Beenden</string>
+    <string name="splash_connect">Verbinden</string>
+    <string name="no_connection">Keine Verbindung zum Interwebz!</string>
+    
+    <!-- FragmentBuilder -->
+    <string name="drawer_open">Navigation öffnen</string>
+    <string name="drawer_close">Navigation schließen</string>
+    
+    <!-- Menu Items -->
+    <string name="menu_new">Neu</string>
+    <string name="menu_best">Beste</string>
+    <string name="menu_random">Zufall</string>
+    <string name="menu_search">Suche</string>
+    <string name="menu_queue">Warteschlange</string>
+    <string name="menu_favourites">Favoriten</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="menu_about">Über</string>
+    <string name="menu_quit">Beenden</string>
+    
+    <!-- Menu Item - Subtitles -->
+    <string name="menu_new_sub">die neusten Zitate</string>
+    <string name="menu_best_sub">die lustigsten Zitate</string>
+    <string name="menu_random_sub">Zufallsspaß</string>
+    <string name="menu_search_sub">Auf der Suche?</string>
+    <string name="menu_queue_sub">1337 oder fail?</string>
+    <string name="menu_favourites_sub">deine Lieblinge</string>
+    <string name="menu_settings_sub">verändere die App</string>
+    <string name="menu_about_sub">wtf? Wer ist codewing?!</string>
+    <string name="menu_quit_sub">sollte eigentlich nicht existieren?!</string>
+
+    <!-- Buttons/Headlines/Default Values -->
+    <string name="button_previous">vorherige</string>
+    <string name="button_next">nächste</string>
+    <string name="button_reload">laden</string>
+    <string name="button_reroll">erneut würfeln</string>
+    <string name="button_search">Suchen</string>
+    <string name="search_term">Suchbegriff eingeben</string>
+    <string name="one">1</string>
+    <string name="headline_comments">Kommentare:</string>
+    
+    <!-- Preferences -->
+    <string name="pref_title_listanditem">Listen- und Eintragseinstellungen</string>
+    <string name="pref_title_numberofitems">Anzahl der Zitate</string> 
+    <string name="pref_summary_numberofitems">So viele Zitate werden angezeigt. Achtung: Je mehr Zitate desto länger dauert das Herunterladen der Zitate. Danke Cpt. Obvious</string>
+    <string name="pref_title_colorize">Bewertung färben</string> 
+    <string name="pref_title_pageid">Seitennummer speichern</string> 
+    <string name="pref_summary_pageid">Speichert die aktuelle Seite für den nächsten Start</string> 
+    
+    <string name="pref_title_misc">Anderes</string>
+    <string name="pref_title_autostart">Autostart</string>
+    <string name="pref_summary_autostart">die App startet direkt.</string>
+    
+    <!-- About -->
+    <string name="about_text">iBash für Android - Version 2.2 \nApp von Winfried Baumann \nwww.codewing.de \n</string>
+    <string name="about_thanks">Danke an: \n- Semjon K. (Webmaster von ibash.de) \n- Selina F. (Designideen) \n- Kevin S. (Betatester) \n- alle meine Freunde \n- DIR weil du die App benützt \nDANKE!!!\n</string>
+    <string name="about_follow">Folgt mir auf</string>
+    <string name="no_items_queue">Keine Zitate in der Warteschlange</string>
+    
+    <!-- Widget -->
+    <string name="widget_openApp">App öffnen</string>
+    <string name="widget_loading">lädt</string>
+</resources>

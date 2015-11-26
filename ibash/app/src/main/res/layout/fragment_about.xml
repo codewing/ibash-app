@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView_about_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="#585858"
+        android:gravity="center"
+        android:text="@string/menu_about"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView_about_title"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:text="@string/about_text" />
+
+    <TextView
+        android:id="@+id/textView_about_thanks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView_about"
+        android:autoLink="web"
+        android:text="@string/about_thanks" />
+
+    <TextView
+        android:id="@+id/textView_about_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView_about_thanks"
+        android:layout_marginBottom="5dip"
+        android:background="#585858"
+        android:gravity="center"
+        android:text="@string/about_follow"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView_about_follow" >
+
+        <ImageButton
+            android:id="@+id/imageButton_blog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:maxHeight="100dip"
+            android:maxWidth="100dip"
+            android:scaleType="centerInside"
+            android:layout_weight="1"
+            android:src="@drawable/codewing" />
+
+        <ImageButton
+            android:id="@+id/imageButton_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:maxHeight="100dip"
+            android:maxWidth="100dip"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/facebook" />
+
+        <ImageButton
+            android:id="@+id/imageButton_twitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:maxHeight="100dip"
+            android:maxWidth="100dip"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/twitter" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,131 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* ic_launcher-web.png
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:18.0.0
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* \ => app\src\main\java\
+* .classpath => app\src\main\resources\.classpath
+* .project => app\src\main\resources\.project
+* .settings\org.eclipse.jdt.core.prefs => app\src\main\resources\.settings\org.eclipse.jdt.core.prefs
+* AndroidManifest.xml => app\src\main\resources\AndroidManifest.xml
+* assets\ => app\src\main\assets
+* bin\AndroidManifest.xml => app\src\main\resources\bin\AndroidManifest.xml
+* bin\classes.dex => app\src\main\resources\bin\classes.dex
+* bin\ibash.apk => app\src\main\resources\bin\ibash.apk
+* bin\jarlist.cache => app\src\main\resources\bin\jarlist.cache
+* bin\R.txt => app\src\main\resources\bin\R.txt
+* bin\res\crunch\drawable-hdpi\action_about.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_about.png
+* bin\res\crunch\drawable-hdpi\action_best.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_best.png
+* bin\res\crunch\drawable-hdpi\action_favourites.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_favourites.png
+* bin\res\crunch\drawable-hdpi\action_new.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_new.png
+* bin\res\crunch\drawable-hdpi\action_queue.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_queue.png
+* bin\res\crunch\drawable-hdpi\action_quit.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_quit.png
+* bin\res\crunch\drawable-hdpi\action_random.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_random.png
+* bin\res\crunch\drawable-hdpi\action_search.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_search.png
+* bin\res\crunch\drawable-hdpi\action_settings.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\action_settings.png
+* bin\res\crunch\drawable-hdpi\collections_cloud.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\collections_cloud.png
+* bin\res\crunch\drawable-hdpi\drawer_shadow.9.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\drawer_shadow.9.png
+* bin\res\crunch\drawable-hdpi\facebook.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\facebook.png
+* bin\res\crunch\drawable-hdpi\ibash_codewing.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\ibash_codewing.png
+* bin\res\crunch\drawable-hdpi\ic_drawer.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\ic_drawer.png
+* bin\res\crunch\drawable-hdpi\ic_launcher.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\ic_launcher.png
+* bin\res\crunch\drawable-hdpi\listitem_header_2.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\listitem_header_2.png
+* bin\res\crunch\drawable-hdpi\twitter.png => app\src\main\resources\bin\res\crunch\drawable-hdpi\twitter.png
+* bin\res\crunch\drawable-mdpi\ic_launcher.png => app\src\main\resources\bin\res\crunch\drawable-mdpi\ic_launcher.png
+* bin\res\crunch\drawable-xhdpi\ic_launcher.png => app\src\main\resources\bin\res\crunch\drawable-xhdpi\ic_launcher.png
+* bin\res\crunch\drawable-xxhdpi\ic_launcher.png => app\src\main\resources\bin\res\crunch\drawable-xxhdpi\ic_launcher.png
+* bin\resources.ap_ => app\src\main\resources\bin\resources.ap_
+* ic_launcher-web.png => app\src\main\resources\ic_launcher-web.png
+* lint.xml => app\src\main\resources\lint.xml
+* proguard-project.txt => app\src\main\resources\proguard-project.txt
+* project.properties => app\src\main\resources\project.properties
+* res\ => app\src\main\res\
+* res\drawable-hdpi\action_about.png => app\src\main\resources\res\drawable-hdpi\action_about.png
+* res\drawable-hdpi\action_best.png => app\src\main\resources\res\drawable-hdpi\action_best.png
+* res\drawable-hdpi\action_favourites.png => app\src\main\resources\res\drawable-hdpi\action_favourites.png
+* res\drawable-hdpi\action_new.png => app\src\main\resources\res\drawable-hdpi\action_new.png
+* res\drawable-hdpi\action_queue.png => app\src\main\resources\res\drawable-hdpi\action_queue.png
+* res\drawable-hdpi\action_quit.png => app\src\main\resources\res\drawable-hdpi\action_quit.png
+* res\drawable-hdpi\action_random.png => app\src\main\resources\res\drawable-hdpi\action_random.png
+* res\drawable-hdpi\action_search.png => app\src\main\resources\res\drawable-hdpi\action_search.png
+* res\drawable-hdpi\action_settings.png => app\src\main\resources\res\drawable-hdpi\action_settings.png
+* res\drawable-hdpi\codewing.jpg => app\src\main\resources\res\drawable-hdpi\codewing.jpg
+* res\drawable-hdpi\collections_cloud.png => app\src\main\resources\res\drawable-hdpi\collections_cloud.png
+* res\drawable-hdpi\drawer_shadow.9.png => app\src\main\resources\res\drawable-hdpi\drawer_shadow.9.png
+* res\drawable-hdpi\facebook.png => app\src\main\resources\res\drawable-hdpi\facebook.png
+* res\drawable-hdpi\ibash_codewing.png => app\src\main\resources\res\drawable-hdpi\ibash_codewing.png
+* res\drawable-hdpi\ic_drawer.png => app\src\main\resources\res\drawable-hdpi\ic_drawer.png
+* res\drawable-hdpi\ic_launcher.png => app\src\main\resources\res\drawable-hdpi\ic_launcher.png
+* res\drawable-hdpi\listitem_header_2.png => app\src\main\resources\res\drawable-hdpi\listitem_header_2.png
+* res\drawable-hdpi\twitter.png => app\src\main\resources\res\drawable-hdpi\twitter.png
+* res\drawable-mdpi\ic_launcher.png => app\src\main\resources\res\drawable-mdpi\ic_launcher.png
+* res\drawable-xhdpi\ic_launcher.png => app\src\main\resources\res\drawable-xhdpi\ic_launcher.png
+* res\drawable-xxhdpi\ic_launcher.png => app\src\main\resources\res\drawable-xxhdpi\ic_launcher.png
+* res\layout\activity_splash.xml => app\src\main\resources\res\layout\activity_splash.xml
+* res\layout\drawer_list_item.xml => app\src\main\resources\res\layout\drawer_list_item.xml
+* res\layout\drawer_main.xml => app\src\main\resources\res\layout\drawer_main.xml
+* res\layout\fragment_about.xml => app\src\main\resources\res\layout\fragment_about.xml
+* res\layout\fragment_best.xml => app\src\main\resources\res\layout\fragment_best.xml
+* res\layout\fragment_favourites.xml => app\src\main\resources\res\layout\fragment_favourites.xml
+* res\layout\fragment_new.xml => app\src\main\resources\res\layout\fragment_new.xml
+* res\layout\fragment_queue.xml => app\src\main\resources\res\layout\fragment_queue.xml
+* res\layout\fragment_random.xml => app\src\main\resources\res\layout\fragment_random.xml
+* res\layout\fragment_search.xml => app\src\main\resources\res\layout\fragment_search.xml
+* res\layout\layout_comment.xml => app\src\main\resources\res\layout\layout_comment.xml
+* res\layout\listitem_comment.xml => app\src\main\resources\res\layout\listitem_comment.xml
+* res\layout\listitem_std.xml => app\src\main\resources\res\layout\listitem_std.xml
+* res\layout\widget_random_layout.xml => app\src\main\resources\res\layout\widget_random_layout.xml
+* res\menu\listitem_context.xml => app\src\main\resources\res\menu\listitem_context.xml
+* res\menu\listitem_context_favi.xml => app\src\main\resources\res\menu\listitem_context_favi.xml
+* res\menu\listitem_context_queue.xml => app\src\main\resources\res\menu\listitem_context_queue.xml
+* res\menu\splash.xml => app\src\main\resources\res\menu\splash.xml
+* res\values-de\strings.xml => app\src\main\resources\res\values-de\strings.xml
+* res\values-sw600dp\dimens.xml => app\src\main\resources\res\values-sw600dp\dimens.xml
+* res\values-sw720dp-land\dimens.xml => app\src\main\resources\res\values-sw720dp-land\dimens.xml
+* res\values-v11\styles.xml => app\src\main\resources\res\values-v11\styles.xml
+* res\values-v14\styles.xml => app\src\main\resources\res\values-v14\styles.xml
+* res\values\dimens.xml => app\src\main\resources\res\values\dimens.xml
+* res\values\strings.xml => app\src\main\resources\res\values\strings.xml
+* res\values\styles.xml => app\src\main\resources\res\values\styles.xml
+* res\xml\fragment_settings.xml => app\src\main\resources\res\xml\fragment_settings.xml
+* res\xml\widget_info.xml => app\src\main\resources\res\xml\widget_info.xml
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
