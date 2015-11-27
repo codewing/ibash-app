@@ -93,9 +93,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	// Getting All Quotes
 	public List<FaviQuote> getFaviQuotes(int number, int page) {
 		List<FaviQuote> quoteList = new ArrayList<FaviQuote>();
-		int pos = number * page + 1;
+		int startPos = number * (page - 1);
 	    // Select All Query
-	    String selectQuery = "SELECT  * FROM " + TABLE_IBASH_FAVOURITES + " WHERE ROWID >= "+pos+" LIMIT " + number;
+	    String selectQuery = "SELECT  * FROM " + TABLE_IBASH_FAVOURITES + " ";
+		if(startPos != 0){
+			selectQuery += " LIMIT " + startPos + ", " + number;
+		}else{
+			selectQuery += "LIMIT " + number;
+		}
 	 
 	    SQLiteDatabase db = this.getWritableDatabase();
 	    Cursor cursor = db.rawQuery(selectQuery, null);
@@ -110,7 +115,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	        	quoteList.add(fquote);
 	        } while (cursor.moveToNext());
 	    }
-	 
+
+		cursor.close();
+
 	    // return contact list
 	    return quoteList;
 	}
