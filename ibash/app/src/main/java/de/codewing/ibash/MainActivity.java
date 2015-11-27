@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, R.string.drawer_open,
+                R.drawable.ic_menu, R.string.drawer_open,
                 R.string.drawer_close) {
  
             public void onDrawerClosed(View view) {
