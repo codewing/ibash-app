@@ -57,8 +57,7 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 
 	public CustomListAdapter(LayoutInflater linflater, Activity activity,
 			String type, ListView lv) {
-		// mInflater = (LayoutInflater) activity.getLayoutInflater(); //
-		// MyActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 		mInflater = linflater;
 		this.type = type;
 		this.activity = activity;

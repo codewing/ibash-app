@@ -36,7 +36,7 @@ public class BestFragment extends Fragment implements OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_best, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_new_best_favi, container, false);
         
         ListView l = (ListView) rootView.findViewById(R.id.listView_quotes);
 		cla = new CustomListAdapter(inflater, getActivity(), "best", l);

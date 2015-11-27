@@ -33,7 +33,7 @@ public class FavouritesFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_favourites,
+		View rootView = inflater.inflate(R.layout.fragment_new_best_favi,
 				container, false);
 
 		ListView l = (ListView) rootView.findViewById(R.id.listView_quotes);
