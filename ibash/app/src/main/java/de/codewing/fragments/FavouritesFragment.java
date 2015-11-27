@@ -55,7 +55,7 @@ public class FavouritesFragment extends Fragment implements
 		et_pagenumber = (EditText) rootView
 				.findViewById(R.id.editText_pagenumber);
 
-		cla.updateFavourites(bt_next);
+		cla.updateFavourites(bt_next, pagenumber);
 
 		// Buttons checken
 		// Previous Button
@@ -82,8 +82,7 @@ public class FavouritesFragment extends Fragment implements
 			break;
 
 		case (R.id.button_reload): {
-			if (!et_pagenumber.getText().toString().equals("")
-					&& et_pagenumber.getText().toString() != null)
+			if (!et_pagenumber.getText().toString().equals(""))
 				pagenumber = Integer.parseInt(et_pagenumber.getText()
 						.toString());
 		}
@@ -91,7 +90,7 @@ public class FavouritesFragment extends Fragment implements
 
 		}
 		// Immer aktualisieren und immer Daten Speichern
-		cla.updateFavourites(bt_next);
+		cla.updateFavourites(bt_next, pagenumber);
 		et_pagenumber.setText("" + pagenumber);
 
 		// Buttons checken
@@ -145,7 +144,7 @@ public class FavouritesFragment extends Fragment implements
 			Log.d("Context chosen", "delete Favi");
 			SQLiteHelper database = new SQLiteHelper(getActivity());
 			database.removeFaviQuote(itemid);
-			cla.updateFavourites(bt_next);
+			cla.updateFavourites(bt_next, pagenumber);
 			
 			return true;
 		}

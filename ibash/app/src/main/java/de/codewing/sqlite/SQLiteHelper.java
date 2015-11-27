@@ -1,16 +1,16 @@
 package de.codewing.sqlite;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
@@ -93,7 +93,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	// Getting All Quotes
 	public List<FaviQuote> getFaviQuotes(int number, int page) {
 		List<FaviQuote> quoteList = new ArrayList<FaviQuote>();
-		int pos = number * page +1;
+		int pos = number * page + 1;
 	    // Select All Query
 	    String selectQuery = "SELECT  * FROM " + TABLE_IBASH_FAVOURITES + " WHERE ROWID >= "+pos+" LIMIT " + number;
 	 
@@ -120,10 +120,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		String countQuery = "SELECT  * FROM " + TABLE_IBASH_FAVOURITES;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+		int count = cursor.getCount();
         cursor.close();
  
         // return count
-        return cursor.getCount();
+        return count;
 	
 	}
 	

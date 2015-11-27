@@ -156,13 +156,24 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 				+ "&number=" + displayed_items + "&page=" + pagenumber);
 	}
 	
-	public void updateFavourites(Button bt_next) {
+	public void updateFavourites(Button bt_next, int pageNumber) {
 		this.bt_next = bt_next;
 		// Loading circle setzen
 		listview.setEmptyView(activity.findViewById(R.id.loadingCircle));
 
+		SharedPreferences sharedPref = PreferenceManager
+				.getDefaultSharedPreferences(activity);
+		int displayed_items = Integer.parseInt(sharedPref.getString("pref_key_numberofitems", "10"));
+		SQLiteHelper sqLiteHelper = new SQLiteHelper(activity);
+		int faviCount = sqLiteHelper.getFaviCount();
+		if(pageNumber * displayed_items >= faviCount){
+			bt_next.setEnabled(false);
+		}else{
+			bt_next.setEnabled(true);
+		}
+
 		// Quotes herunterladen
-		HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi();
+		HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi(pageNumber);
 		dl.execute("http://www.ibash.de/iphone/quotearray.php");
 	}
 
@@ -349,6 +360,12 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 	
 	private class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
 
+		int pageNumber = 0;
+
+		HTTPDownloadTaskFavi(int pageNumber){
+			this.pageNumber = pageNumber;
+		}
+
 		@Override
 		protected String doInBackground(String... params) {
 			String urlStr = params[0];
@@ -359,7 +376,7 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 					"10");
 			
 			SQLiteHelper database = new SQLiteHelper(activity);
-			List<FaviQuote> fqlist = database.getFaviQuotes(Integer.parseInt(displayed_items), page);
+			List<FaviQuote> fqlist = database.getFaviQuotes(Integer.parseInt(displayed_items), pageNumber);
 			
 			String ids = "";
 			for(int i = 0; i < fqlist.size(); i++){
