@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
  
     <Button
         android:id="@+id/button_previous"
@@ -11,6 +10,9 @@
         android:layout_alignParentLeft="true"
         android:text="@string/button_previous"
         android:textSize="16sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         android:width="95dp" />
 
     <EditText
@@ -22,7 +24,10 @@
         android:layout_toLeftOf="@+id/button_reload"
         android:layout_toRightOf="@+id/button_previous"
         android:ems="10"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:inputType="numberSigned"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         android:text="@string/one" >
 
     </EditText>
@@ -36,6 +41,9 @@
         android:layout_toLeftOf="@+id/button_next"
         android:text="@string/button_reload"
         android:textSize="16sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         android:width="90dp" />
 
     <Button
@@ -47,6 +55,9 @@
         android:layout_alignTop="@+id/button_reload"
         android:text="@string/button_next"
         android:textSize="16sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         android:width="95dp" />
 
     <ListView
@@ -55,6 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_previous"
         android:layout_alignParentLeft="true"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:layout_alignParentTop="true" >
 
     </ListView>

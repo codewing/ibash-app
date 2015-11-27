@@ -77,7 +77,7 @@
     <string name="pref_summary_autostart">Start the app without clicking on connect</string>
     
     <!-- About -->
-    <string name="about_text">iBash for Android - Version 2.2 \nApp by Winfried Baumann \nwww.codewing.de \n</string>
+    <string name="about_text">iBash for Android - Version 3.0 \nApp by Winfried Baumann \nwww.codewing.de \n</string>
     <string name="about_thanks">Thanks to: \n- Semjon K. (Webmaster of ibash.de) \n- Selina F. (ideas for the design) \n- Kevin S. (beta tester) \n- all my friends \n- you because you use this app \nTHANKS!\n</string>
     <string name="about_follow">Follow me on</string>
     <string name="no_items_queue">no items in the queue</string>

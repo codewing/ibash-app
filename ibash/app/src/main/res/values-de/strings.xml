@@ -77,7 +77,7 @@
     <string name="pref_summary_autostart">die App startet direkt.</string>
     
     <!-- About -->
-    <string name="about_text">iBash für Android - Version 2.2 \nApp von Winfried Baumann \nwww.codewing.de \n</string>
+    <string name="about_text">iBash für Android - Version 3.0 \nApp von Winfried Baumann \nwww.codewing.de \n</string>
     <string name="about_thanks">Danke an: \n- Semjon K. (Webmaster von ibash.de) \n- Selina F. (Designideen) \n- Kevin S. (Betatester) \n- alle meine Freunde \n- DIR weil du die App benützt \nDANKE!!!\n</string>
     <string name="about_follow">Folgt mir auf</string>
     <string name="no_items_queue">Keine Zitate in der Warteschlange</string>
