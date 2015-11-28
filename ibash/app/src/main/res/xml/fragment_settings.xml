@@ -1,5 +1,4 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory 
         android:title="@string/pref_title_listanditem"
         android:key="pref_key_listanditem_settings">
@@ -35,7 +34,7 @@
             android:key="pref_key_home_fragment"
             android:title="@string/pref_title_home_fragment"
             android:summary="@string/pref_summary_home_fragment"
-            android:defaultValue="true"
+            android:defaultValue="0"
             android:entries="@array/HomeEntries"
             android:entryValues="@array/HomeValues"/>
      </PreferenceCategory>
