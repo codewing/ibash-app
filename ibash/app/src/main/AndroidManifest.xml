@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name="MainActivity"
-            android:configChanges="orientation">
+            android:configChanges="orientation"
+            android:windowSoftInputMode="stateUnchanged">
         </activity>
         <activity android:name="CommentActivity" >
         </activity>
