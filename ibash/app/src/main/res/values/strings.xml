@@ -31,6 +31,8 @@
     <string name="drawer_close">Close navigation drawer</string>
     
     <!-- Menu Items -->
+    <string name="menu_title_quotes">Quotes</string>
+    <string name="menu_title_other">Other</string>
     <string name="menu_new">New</string>
     <string name="menu_best">Best</string>
     <string name="menu_random">Random</string>

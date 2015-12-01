@@ -2,9 +2,9 @@ package de.codewing.ibash;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import de.codewing.fragments.AboutFragment;
 import de.codewing.fragments.BestFragment;
@@ -27,15 +25,13 @@ import de.codewing.fragments.QueueFragment;
 import de.codewing.fragments.RandomFragment;
 import de.codewing.fragments.SearchFragment;
  
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // Declare Variables
     DrawerLayout mDrawerLayout;
-    ListView mDrawerList;
+    NavigationView mNavigationView;
     ActionBarDrawerToggle mDrawerToggle;
     MenuListAdapter mMenuAdapter;
-    String[] title;
-    int[] icon;
     Fragment fragment_new = new NewFragment();
     Fragment fragment_best = new BestFragment();
     Fragment fragment_random = new RandomFragment();
@@ -59,34 +55,20 @@ public class MainActivity extends AppCompatActivity {
  
         // Get the Title
         mTitle = mDrawerTitle = getTitle();
-        
-        Resources r = getResources();
- 
-        // Generate title
-        title = new String[] { r.getString(R.string.menu_new), r.getString(R.string.menu_best), r.getString(R.string.menu_random), r.getString(R.string.menu_search), r.getString(R.string.menu_queue), r.getString(R.string.menu_favourites), r.getString(R.string.menu_settings), r.getString(R.string.menu_about), r.getString(R.string.menu_quit) };
 
-        // Generate icon
-        icon = new int[] {R.drawable.ic_plus_one, R.drawable.ic_star, R.drawable.ic_dice, R.drawable.ic_magnify, R.drawable.ic_image_filter_none, R.drawable.ic_heart,R.drawable.ic_settings, R.drawable.ic_information_outline, R.drawable.ic_power };
- 
         // Locate DrawerLayout in drawer_main.xml
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
  
         // Locate ListView in drawer_main.xml
-        mDrawerList = (ListView) findViewById(R.id.listview_drawer);
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
  
         // Set a custom shadow that overlays the main content when the drawer
         // opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
  
-        // Pass string arrays to MenuListAdapter
-        mMenuAdapter = new MenuListAdapter(MainActivity.this, title, icon);
- 
         // Set the MenuListAdapter to the ListView
-        mDrawerList.setAdapter(mMenuAdapter);
- 
-        // Capture listview menu item click
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mNavigationView.setNavigationItemSelectedListener(this);
  
         // Enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -129,25 +111,22 @@ public class MainActivity extends AppCompatActivity {
  
         if (item.getItemId() == android.R.id.home) {
  
-            if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                mDrawerLayout.closeDrawer(mDrawerList);
+            if (mDrawerLayout.isDrawerOpen(mNavigationView)) {
+                mDrawerLayout.closeDrawer(mNavigationView);
             } else {
-                mDrawerLayout.openDrawer(mDrawerList);
+                mDrawerLayout.openDrawer(mNavigationView);
             }
         }
  
         return super.onOptionsItemSelected(item);
     }
- 
-    // ListView click listener in the navigation drawer
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id) {
-            selectItem(position);
-        }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        selectItem(item.getItemId());
+        return false;
     }
+
  
     @Override
 	protected void onResume() {
@@ -159,52 +138,78 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-	private void selectItem(int position) {
+	private void selectItem(int itemID) {
 		
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Locate Position
-        switch (position) {
-        case 0:
-            ft.replace(R.id.content_frame, fragment_new);
-            break;
-        case 1:
-            ft.replace(R.id.content_frame, fragment_best);
-            break;
-        case 2:
-            ft.replace(R.id.content_frame, fragment_random);
-            break;
-        case 3:
-            ft.replace(R.id.content_frame, fragment_search);
-            break;
-        case 4:
-            ft.replace(R.id.content_frame, fragment_queue);
-            break;
-        case 5:
-            ft.replace(R.id.content_frame, fragment_favourites);
-            break;
-        case 6:{
-            ft.replace(R.id.content_frame, fragment_settings);
-        }break;
-        case 7:
-            ft.replace(R.id.content_frame, fragment_about);
-            break;
-        case 8:{
-            //ft.replace(R.id.content_frame, fragment_quit);
-        	finish();
-        }break;
+        switch (itemID) {
+            case 0:
+            case R.id.drawer_item_new:
+                itemID = 0;
+                ft.replace(R.id.content_frame, fragment_new);
+                break;
+
+            case 1:
+            case R.id.drawer_item_best:
+                itemID = 1;
+                ft.replace(R.id.content_frame, fragment_best);
+                break;
+
+            case 2:
+            case R.id.drawer_item_random:
+                itemID = 2;
+                ft.replace(R.id.content_frame, fragment_random);
+                break;
+
+            case 3:
+            case R.id.drawer_item_search:
+                itemID = 3;
+                ft.replace(R.id.content_frame, fragment_search);
+                break;
+
+            case 4:
+            case R.id.drawer_item_queue:
+                itemID = 4;
+                ft.replace(R.id.content_frame, fragment_queue);
+                break;
+
+            case 5:
+            case R.id.drawer_item_favourites:
+                itemID = 5;
+                ft.replace(R.id.content_frame, fragment_favourites);
+                break;
+
+            case 6:
+            case R.id.drawer_item_settings:{
+                itemID = 6;
+                ft.replace(R.id.content_frame, fragment_settings);
+            }break;
+
+            case 7:
+            case R.id.drawer_item_about:
+                itemID = 7;
+                ft.replace(R.id.content_frame, fragment_about);
+                break;
+
+            case 8:
+            case R.id.drawer_item_quit:{
+                itemID = 8;
+                //ft.replace(R.id.content_frame, fragment_quit);
+                finish();
+            }break;
         }
         ft.commit();
-        lastItem = position;
-        mDrawerList.setItemChecked(position, true);
+        lastItem = itemID;
+        mNavigationView.getMenu().getItem(itemID).setChecked(true);
 
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(this);
-        sharedPref.edit().putInt("currently_selected_fragment", position).commit();
+        sharedPref.edit().putInt("currently_selected_fragment", itemID).apply();
  
         // Get the title followed by the position
-        setTitle(title[position]);
+        setTitle(mNavigationView.getMenu().getItem(itemID).getTitle());
         // Close drawer
-        mDrawerLayout.closeDrawer(mDrawerList);
+        mDrawerLayout.closeDrawer(mNavigationView);
     }
  
     @Override
@@ -231,10 +236,10 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(event.getKeyCode() ==  82 ){
-			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                mDrawerLayout.closeDrawer(mDrawerList);
+			if (mDrawerLayout.isDrawerOpen(mNavigationView)) {
+                mDrawerLayout.closeDrawer(mNavigationView);
             } else {
-                mDrawerLayout.openDrawer(mDrawerList);
+                mDrawerLayout.openDrawer(mNavigationView);
             }
 		}
 		return super.onKeyDown(keyCode, event);

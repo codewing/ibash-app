@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/menu_quotes"
+        android:checkableBehavior="single"
+        android:title="@string/menu_title_quotes">
+        <item
+            android:id="@+id/drawer_item_new"
+            android:icon="@drawable/ic_plus_one"
+            android:title="@string/menu_new"/>
+        <item
+            android:id="@+id/drawer_item_best"
+            android:icon="@drawable/ic_star"
+            android:title="@string/menu_best"/>
+
+        <item
+            android:id="@+id/drawer_item_random"
+            android:icon="@drawable/ic_dice"
+            android:title="@string/menu_random"/>
+
+        <item
+            android:id="@+id/drawer_item_search"
+            android:icon="@drawable/ic_magnify"
+            android:title="@string/menu_search"/>
+
+        <item
+            android:id="@+id/drawer_item_queue"
+            android:icon="@drawable/ic_image_filter_none"
+            android:title="@string/menu_queue"/>
+
+        <item
+            android:id="@+id/drawer_item_favourites"
+            android:icon="@drawable/ic_heart"
+            android:title="@string/menu_favourites"/>
+    </group>
+
+    <group
+        android:id="@+id/menu_misc"
+        android:checkableBehavior="single"
+        android:title="@string/menu_title_other">
+
+        <item
+            android:id="@+id/drawer_item_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_settings"/>
+
+        <item
+            android:id="@+id/drawer_item_about"
+            android:icon="@drawable/ic_information_outline"
+            android:title="@string/menu_about"/>
+
+        <item
+            android:id="@+id/drawer_item_quit"
+            android:icon="@drawable/ic_power"
+            android:title="@string/menu_quit"/>
+    </group>
+</menu>
