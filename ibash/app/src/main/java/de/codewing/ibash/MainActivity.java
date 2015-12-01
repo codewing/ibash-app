@@ -139,6 +139,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 	private void selectItem(int itemID) {
+
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        int selectedPosition = sharedPref.getInt("currently_selected_fragment", 0);
+        setNavSelectionState(selectedPosition, false);
+
 		
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Locate Position
@@ -200,18 +207,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         ft.commit();
         lastItem = itemID;
-        mNavigationView.getMenu().getItem(itemID).setChecked(true);
 
-        SharedPreferences sharedPref = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        setNavSelectionState(itemID, true);
+
         sharedPref.edit().putInt("currently_selected_fragment", itemID).apply();
- 
-        // Get the title followed by the position
-        setTitle(mNavigationView.getMenu().getItem(itemID).getTitle());
+
         // Close drawer
         mDrawerLayout.closeDrawer(mNavigationView);
     }
- 
+
+    private void setNavSelectionState(int pos, boolean state){
+        int[] menuPath = posToPath(pos);
+        if(state){
+            mNavigationView.getMenu().getItem(menuPath[0]).getSubMenu().getItem(menuPath[1]).setChecked(true);
+            // Get the title of the selected item
+            setTitle(mNavigationView.getMenu().getItem(menuPath[0]).getSubMenu().getItem(menuPath[1]).getTitle());
+        }else{
+            mNavigationView.getMenu().getItem(menuPath[0]).getSubMenu().getItem(menuPath[1]).setChecked(false);
+        }
+    }
+
+    private int[] posToPath(int pos){
+        int[] index = new int[2];
+
+        if(pos <= 5){
+            index[0] = 0;
+            index[1] = pos;
+        }else{
+            index[0] = 1;
+            index[1] = pos - 6;
+        }
+        return index;
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
