@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 super.onDrawerOpened(drawerView);
             }
         };
- 
+
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         //get last state
