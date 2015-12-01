@@ -71,7 +71,7 @@ public class RandomFragment extends Fragment implements OnClickListener {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    int index = info.position;
-	    int itemid = cla.getItem(index).getIdent();
+	    int itemid = cla.getItem(index).getId();
 		Log.d("Context opened", "onSelect");
 		LikeOrDislike lod = new LikeOrDislike(getActivity());
 		switch (item.getItemId()) {

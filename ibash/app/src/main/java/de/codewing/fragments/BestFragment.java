@@ -101,7 +101,7 @@ public class BestFragment extends Fragment implements OnClickListener {
 		}break;
 
 		case (R.id.button_reload):{
-			if(!et_pagenumber.getText().toString().equals("") && et_pagenumber.getText().toString() != null)
+			if(!et_pagenumber.getText().toString().isEmpty())
 				pagenumber = Integer.parseInt(et_pagenumber.getText().toString());
 			
 		}break;
@@ -145,7 +145,7 @@ public class BestFragment extends Fragment implements OnClickListener {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    int index = info.position;
-	    int itemid = cla.getItem(index).getIdent();
+	    int itemid = cla.getItem(index).getId();
 		Log.d("Context opened", "onSelect");
 		LikeOrDislike lod = new LikeOrDislike(getActivity());
 		switch (item.getItemId()) {

@@ -32,7 +32,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -41,311 +40,311 @@ import java.util.List;
 
 import de.codewing.ibash.CommentActivity;
 import de.codewing.ibash.R;
-import de.codewing.sqlite.FaviQuote;
+import de.codewing.model.FaviQuote;
+import de.codewing.model.Quote;
 import de.codewing.sqlite.SQLiteHelper;
 
 public class CustomListAdapter extends BaseAdapter implements OnItemClickListener, OnItemLongClickListener {
-	private final LayoutInflater mInflater;
-	private CustomListAdapter mAdapter = this;
-	private final String type;
-	private Activity activity;
-	private ListView listview;
-	public int lastpage = 0;
-	Button bt_next;
-	public Quote gewaehlterDatensatz = new Quote(1337, "NOW", 1337, "Errorquote");
-	public int page;
+    private final LayoutInflater mInflater;
+    private CustomListAdapter mAdapter = this;
+    private final String type;
+    private Activity activity;
+    private ListView listview;
+    public int lastpage = 0;
+    Button bt_next;
+    public Quote gewaehlterDatensatz = new Quote(1337, "NOW", 1337, "Errorquote");
+    public int page;
 
-	public CustomListAdapter(LayoutInflater linflater, Activity activity,
-			String type, ListView lv) {
+    public CustomListAdapter(LayoutInflater linflater, Activity activity,
+                             String type, ListView lv) {
 
-		mInflater = linflater;
-		this.type = type;
-		this.activity = activity;
-		this.listview = lv;
-		lv.setDivider(null);
-	}
+        mInflater = linflater;
+        this.type = type;
+        this.activity = activity;
+        this.listview = lv;
+        lv.setDivider(null);
+    }
 
-	public int getCount() {
-		return quotelist.size();
-	}
+    public int getCount() {
+        return quotelist.size();
+    }
 
-	public Quote getItem(int position) {
-		return quotelist.get(position);
-	}
+    public Quote getItem(int position) {
+        return quotelist.get(position);
+    }
 
-	public long getItemId(int position) {
-		return (long) position;
-	}
+    public long getItemId(int position) {
+        return (long) position;
+    }
 
-	public View getView(int position, View convertView, ViewGroup parent) {
-		LinearLayout itemView = (LinearLayout) mInflater.inflate(R.layout.listitem_std, parent, false);
-		bindView(itemView, position);
-		return itemView;
-	}
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LinearLayout itemView = (LinearLayout) mInflater.inflate(R.layout.listitem_std, parent, false);
+        bindView(itemView, position);
+        return itemView;
+    }
 
-	// Add values to an item
-	private void bindView(LinearLayout view, int position) {
-		Quote quote = getItem(position);
-		view.setId((int) getItemId(position));
-		TextView tv_id = (TextView) view.findViewById(R.id.ident);
-		TextView tv_ts = (TextView) view.findViewById(R.id.timestamp);
-		TextView tv_rating = (TextView) view.findViewById(R.id.rating);
-		TextView tv_quote = (TextView) view.findViewById(R.id.quote);
-		tv_id.setText("" + quote.getIdent());
-		tv_ts.setText(quote.getTs());
-		tv_rating.setText("" + quote.getRating());
-		tv_quote.setText(quote.getQuotetext()+"\n");
+    // Add values to an item
+    private void bindView(LinearLayout view, int position) {
+        Quote quote = getItem(position);
+        view.setId((int) getItemId(position));
+        TextView tv_id = (TextView) view.findViewById(R.id.id);
+        TextView tv_ts = (TextView) view.findViewById(R.id.timestamp);
+        TextView tv_rating = (TextView) view.findViewById(R.id.rating);
+        TextView tv_quote = (TextView) view.findViewById(R.id.quote);
+        tv_id.setText("" + quote.getId());
+        tv_ts.setText(quote.getTs());
+        tv_rating.setText("" + quote.getRating());
+        tv_quote.setText(quote.getQuotetext() + "\n");
 
-		// Colorize rating?
-		SharedPreferences sharedPref = PreferenceManager
-				.getDefaultSharedPreferences(activity);
-		boolean colorize = sharedPref.getBoolean("pref_key_colorizerating",
-				true);
-		if (colorize) {
-			if (quote.getRating() < 0) {
-				tv_rating.setTextColor(Color.RED);
-			}
-			if (quote.getRating() == 0) {
-				tv_rating.setTextColor(Color.YELLOW);
-			}
-			if (quote.getRating() > 0) {
-				tv_rating.setTextColor(Color.rgb(50, 205, 50));
-			}
+        // Colorize rating?
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        boolean colorize = sharedPref.getBoolean("pref_key_colorizerating",
+                true);
+        if (colorize) {
+            if (quote.getRating() < 0) {
+                tv_rating.setTextColor(Color.RED);
+            }
+            if (quote.getRating() == 0) {
+                tv_rating.setTextColor(Color.YELLOW);
+            }
+            if (quote.getRating() > 0) {
+                tv_rating.setTextColor(Color.rgb(50, 205, 50));
+            }
 
-		}
-	}
+        }
+    }
 
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		// Meldung ausgeben oder Intent bauen und Activity starten
-		Log.d("Clicker", "ListItem clicked: "+id);
-		gewaehlterDatensatz = quotelist.get(position);
-		Bundle quote = new Bundle();
-		quote.putInt("key_quote_id", gewaehlterDatensatz.getIdent());
-		quote.putString("key_quote_ts", gewaehlterDatensatz.getTs());
-		quote.putInt("key_quote_rating", gewaehlterDatensatz.getRating());
-		quote.putString("key_quote_content", gewaehlterDatensatz.getQuotetext());
-		Intent launchComment = new Intent(activity, CommentActivity.class);
-		launchComment.putExtras(quote);
-		activity.startActivity(launchComment);
-	}
-	
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-		Log.d("Clicker", "ListItem LONGclicked: "+id);
-		return false;
-	}
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+                            long id) {
+        // Meldung ausgeben oder Intent bauen und Activity starten
+        Log.d("Clicker", "ListItem clicked: " + id);
+        gewaehlterDatensatz = quotelist.get(position);
+        Bundle quote = new Bundle();
+        quote.putInt("key_quote_id", gewaehlterDatensatz.getId());
+        quote.putString("key_quote_ts", gewaehlterDatensatz.getTs());
+        quote.putInt("key_quote_rating", gewaehlterDatensatz.getRating());
+        quote.putString("key_quote_content", gewaehlterDatensatz.getQuotetext());
+        Intent launchComment = new Intent(activity, CommentActivity.class);
+        launchComment.putExtras(quote);
+        activity.startActivity(launchComment);
+    }
 
-	// Datensatzliste
-	private ArrayList<Quote> quotelist = new ArrayList<Quote>();
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("Clicker", "ListItem LONGclicked: " + id);
+        return false;
+    }
 
-	public void updateDatensaetze(String pagenumber, Button bt_next) {
-		this.bt_next = bt_next;
-		// Loading circle setzen
-		listview.setEmptyView(activity.findViewById(R.id.loadingCircle));
+    // Datensatzliste
+    private ArrayList<Quote> quotelist = new ArrayList();
 
-		SharedPreferences sharedPref = PreferenceManager
-				.getDefaultSharedPreferences(activity);
-		String displayed_items = sharedPref.getString("pref_key_numberofitems",
-				"10");
+    public void updateDatensaetze(String pagenumber, Button bt_next) {
+        this.bt_next = bt_next;
+        // Loading circle setzen
+        listview.setEmptyView(activity.findViewById(R.id.loadingCircle));
 
-		// Quotes herunterladen
-		HTTPDownloadTask dl = new HTTPDownloadTask();
-		dl.type = type;
-		dl.execute("http://www.ibash.de/iphone/quotes2.php?order=" + type
-				+ "&number=" + displayed_items + "&page=" + pagenumber);
-	}
-	
-	public void updateFavourites(Button bt_next, int pageNumber) {
-		this.bt_next = bt_next;
-		// Loading circle setzen
-		listview.setEmptyView(activity.findViewById(R.id.loadingCircle));
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        String displayed_items = sharedPref.getString("pref_key_numberofitems",
+                "10");
 
-		SharedPreferences sharedPref = PreferenceManager
-				.getDefaultSharedPreferences(activity);
-		int displayed_items = Integer.parseInt(sharedPref.getString("pref_key_numberofitems", "10"));
-		SQLiteHelper sqLiteHelper = new SQLiteHelper(activity);
-		int faviCount = sqLiteHelper.getFaviCount();
-		if(pageNumber * displayed_items >= faviCount){
-			bt_next.setEnabled(false);
-		}else{
-			bt_next.setEnabled(true);
-		}
+        // Quotes herunterladen
+        HTTPDownloadTask dl = new HTTPDownloadTask();
+        dl.type = type;
+        dl.execute("http://www.ibash.de/iphone/quotes2.php?order=" + type
+                + "&number=" + displayed_items + "&page=" + pagenumber);
+    }
 
-		// Quotes herunterladen
-		HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi(pageNumber);
-		dl.execute("http://www.ibash.de/iphone/quotearray.php");
-	}
+    public void updateFavourites(Button bt_next, int pageNumber) {
+        this.bt_next = bt_next;
+        // Loading circle setzen
+        listview.setEmptyView(activity.findViewById(R.id.loadingCircle));
 
-	public void updateDatensaetze(String pagenumber, Button bt_next, String searchterm,
-			Boolean warte) {
-		this.bt_next = bt_next;
-		// Loading circle setzen
-		listview.setEmptyView(activity.findViewById(R.id.loadingCircle));
-		// Visibility 0 = visible
-		// activity.findViewById(R.id.loadingCircle).setVisibility(0);
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        int displayed_items = Integer.parseInt(sharedPref.getString("pref_key_numberofitems", "10"));
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(activity);
+        int faviCount = sqLiteHelper.getFaviCount();
+        if (pageNumber * displayed_items >= faviCount) {
+            bt_next.setEnabled(false);
+        } else {
+            bt_next.setEnabled(true);
+        }
 
-		SharedPreferences sharedPref = PreferenceManager
-				.getDefaultSharedPreferences(activity);
-		String displayed_items = sharedPref.getString("pref_key_numberofitems",
-				"10");
+        // Quotes herunterladen
+        HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi(pageNumber);
+        dl.execute("http://www.ibash.de/iphone/quotearray.php");
+    }
 
-		// Quotes herunterladen
-		HTTPDownloadTask dl = new HTTPDownloadTask();
-		dl.istWarte = warte;
-		if (warte) {
-			dl.execute("http://www.ibash.de/iphone/warte.php");
-		} else {
-			dl.execute("http://www.ibash.de/iphone/query.php?term="+ searchterm + "&number=" + displayed_items + "&page="+ pagenumber);
-		}
+    public void updateDatensaetze(String pagenumber, Button bt_next, String searchterm,
+                                  Boolean warte) {
+        this.bt_next = bt_next;
+        // Loading circle setzen
+        listview.setEmptyView(activity.findViewById(R.id.loadingCircle));
+        // Visibility 0 = visible
+        // activity.findViewById(R.id.loadingCircle).setVisibility(0);
 
-	}
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        String displayed_items = sharedPref.getString("pref_key_numberofitems",
+                "10");
 
-	public void restoreRandomQuoteList(View loadingCircle) {
-		SharedPreferences sharedPref = PreferenceManager
-				.getDefaultSharedPreferences(activity);
-		String result = sharedPref.getString("pref_key_randomtab_data", null);
+        // Quotes herunterladen
+        HTTPDownloadTask dl = new HTTPDownloadTask();
+        dl.istWarte = warte;
+        if (warte) {
+            dl.execute("http://www.ibash.de/iphone/warte.php");
+        } else {
+            dl.execute("http://www.ibash.de/iphone/query.php?term=" + searchterm + "&number=" + displayed_items + "&page=" + pagenumber);
+        }
 
-		// Wenn nichts heruntergeladen wurde dann auch nichts setzen
-		listview.setEmptyView(activity.findViewById(R.id.empty_List));
-		// Visibility 8 = Invis + no space
-		loadingCircle.setVisibility(View.INVISIBLE);
+    }
 
-		// Quotes umformen
-		Gson gson = new Gson();
-		try {
-			JsonReader reader = new JsonReader(new StringReader(result));
-			reader.setLenient(true);
-			GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
+    public void restoreRandomQuoteList(View loadingCircle) {
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        String result = sharedPref.getString("pref_key_randomtab_data", null);
 
-			// Leere Quotelist erstellen
-			quotelist = new ArrayList<Quote>();
+        // Wenn nichts heruntergeladen wurde dann auch nichts setzen
+        listview.setEmptyView(activity.findViewById(R.id.empty_List));
+        // Visibility 8 = Invis + no space
+        loadingCircle.setVisibility(View.INVISIBLE);
 
-			// add quotes into the table
-			for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
+        // Quotes umformen
+        Gson gson = new Gson();
+        try {
+            if (result == null) return;
+            JsonReader reader = new JsonReader(new StringReader(result));
+            reader.setLenient(true);
+            GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
 
-				int ident = gquotes.Inhalte.data.get(i).ident;
-				String ts = gquotes.Inhalte.data.get(i).ts;
-				int rating = gquotes.Inhalte.data.get(i).rating;
-				String content = gquotes.Inhalte.data.get(i).content;
-				content = content.replace("[newline]", "\n");
+            // Leere Quotelist erstellen
+            quotelist = new ArrayList();
 
-				Quote quote = new Quote(ident, ts, rating, content);
-				quotelist.add(quote);
-			}
+            // add quotes into the table
+            for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
 
-			mAdapter.notifyDataSetChanged();
+                int ident = gquotes.Inhalte.data.get(i).ident;
+                String ts = gquotes.Inhalte.data.get(i).ts;
+                int rating = gquotes.Inhalte.data.get(i).rating;
+                String content = gquotes.Inhalte.data.get(i).content;
+                content = content.replace("[newline]", "\n");
 
-		} catch (Exception e) {
-			Toast.makeText(activity, "Error: " + e.getMessage(),
-					Toast.LENGTH_LONG).show();
-		}
+                Quote quote = new Quote(ident, ts, rating, content);
+                quotelist.add(quote);
+            }
 
-	}
+            mAdapter.notifyDataSetChanged();
 
-	private class HTTPDownloadTask extends AsyncTask<String, Integer, String> {
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
 
-		String result = "";
-		String type = "new";
-		boolean istWarte = false;
-		
+    }
 
-		@Override
-		protected String doInBackground(String... params) {
-			String urlStr = params[0];
-			
-			Log.d("istWarte", ""+istWarte);
-			
-			URL url;
-			InputStream is = null;
-			BufferedReader br;
-			String line;
+    private class HTTPDownloadTask extends AsyncTask<String, Integer, String> {
 
-			try {
-				url = new URL(urlStr);
-				is = url.openStream(); // throws an IOException
-				br = new BufferedReader(new InputStreamReader(is, "iso-8859-1"));
+        String result = "";
+        String type = "new";
+        boolean istWarte = false;
 
-				while ((line = br.readLine()) != null) {
-					result += line;
-				}
-			} catch (MalformedURLException mue) {
-				mue.printStackTrace();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			} finally {
-				try {
-					if (is != null)
-						is.close();
-				} catch (IOException ioe) {
-					// nothing to see here
-				}
-			}
 
-			Log.d("Downloaded", result);
-			return result;
-		}
+        @Override
+        protected String doInBackground(String... params) {
+            String urlStr = params[0];
 
-		// Wenn die Daten heruntergeladen wurden in die Zitate reinstecken
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
+            Log.d("istWarte", "" + istWarte);
 
-			// Wenn nichts heruntergeladen wurde dann auch nichts setzen
-			listview.setEmptyView(activity.findViewById(R.id.empty_List));
-			// Visibility 8 = Invis + no space
-			activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
+            URL url;
+            InputStream is = null;
+            BufferedReader br;
+            String line;
 
-			// Quotes umformen
-			Gson gson = new Gson();
-			try {
-				JsonReader reader = new JsonReader(new StringReader(result));
-				reader.setLenient(true);
-				GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
+            try {
+                url = new URL(urlStr);
+                is = url.openStream(); // throws an IOException
+                br = new BufferedReader(new InputStreamReader(is, "iso-8859-1"));
 
-				// Leere Quotelist erstellen
-				quotelist = new ArrayList<Quote>();
+                while ((line = br.readLine()) != null) {
+                    result += line;
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            } finally {
+                try {
+                    if (is != null)
+                        is.close();
+                } catch (IOException ioe) {
+                    // nothing to see here
+                }
+            }
 
-				// add quotes into the table
-				for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
+            Log.d("Downloaded", result);
+            return result;
+        }
 
-					int ident = gquotes.Inhalte.data.get(i).ident;
-					String ts = gquotes.Inhalte.data.get(i).ts;
-					int rating = gquotes.Inhalte.data.get(i).rating;
-					String content = gquotes.Inhalte.data.get(i).content;
-					content = content.replace("[newline]", "\n");
+        // Wenn die Daten heruntergeladen wurden in die Zitate reinstecken
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
-					Quote quote = new Quote(ident, ts, rating, content);
-					quotelist.add(quote);
-				}
+            // Wenn nichts heruntergeladen wurde dann auch nichts setzen
+            listview.setEmptyView(activity.findViewById(R.id.empty_List));
+            // Visibility 8 = Invis + no space
+            activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
 
-				mAdapter.notifyDataSetChanged();
-				Log.d("type - nachher download", type);
-				if (type.equals("random")) {
-					Editor edit = PreferenceManager.getDefaultSharedPreferences(activity).edit();
-					edit.putString("pref_key_randomtab_data", result);
-					edit.commit();
-				}
+            // Quotes umformen
+            Gson gson = new Gson();
+            try {
+                JsonReader reader = new JsonReader(new StringReader(result));
+                reader.setLenient(true);
+                GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
 
-				// Wenn es die Warteschlange ist gibt es keine letzte Seite!
-				// Random eigentlich auch aber fail gecoded :D
-				Log.d("istWarte - nach dl", ""+istWarte);
-				if (!istWarte && !type.equalsIgnoreCase("random")) {
-					lastpage = Integer.parseInt(gquotes.Inhalte.last_page);
-					if(lastpage == 1){
-						bt_next.setEnabled(false);
-					}else{
-						bt_next.setEnabled(true);
-					}
-				}
-				listview.setSelection(0);
+                // Leere Quotelist erstellen
+                quotelist = new ArrayList();
 
-			} catch (Exception e) {
-				Log.d("ListAdapter", "Error: " + e.getMessage());
-			}
+                // add quotes into the table
+                for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
+
+                    int ident = gquotes.Inhalte.data.get(i).ident;
+                    String ts = gquotes.Inhalte.data.get(i).ts;
+                    int rating = gquotes.Inhalte.data.get(i).rating;
+                    String content = gquotes.Inhalte.data.get(i).content;
+                    content = content.replace("[newline]", "\n");
+
+                    Quote quote = new Quote(ident, ts, rating, content);
+                    quotelist.add(quote);
+                }
+
+                mAdapter.notifyDataSetChanged();
+                Log.d("type - nachher download", type);
+                if (type.equals("random")) {
+                    Editor edit = PreferenceManager.getDefaultSharedPreferences(activity).edit();
+                    edit.putString("pref_key_randomtab_data", result);
+                    edit.commit();
+                }
+
+                // Wenn es die Warteschlange ist gibt es keine letzte Seite!
+                // Random eigentlich auch aber fail gecoded :D
+                Log.d("istWarte - nach dl", "" + istWarte);
+                if (!istWarte && !type.equalsIgnoreCase("random")) {
+                    lastpage = Integer.parseInt(gquotes.Inhalte.last_page);
+                    if (lastpage == 1) {
+                        bt_next.setEnabled(false);
+                    } else {
+                        bt_next.setEnabled(true);
+                    }
+                }
+                listview.setSelection(0);
+
+            } catch (Exception e) {
+                Log.d("ListAdapter", "Error: " + e.getMessage());
+            }
 
 			/*
-			 * Editor edit =
+             * Editor edit =
 			 * PreferenceManager.getDefaultSharedPreferences(activity).edit();
 			 * edit.putString("pref_key_randomtab_data", result); edit.commit();
 			 * 
@@ -354,145 +353,138 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 			 * res_text = sharedPref.getString("pref_key_randomtab_data", null);
 			 */
 
-		}
+        }
 
-	}
-	
-	private class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
+    }
 
-		int pageNumber = 0;
+    private class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
 
-		HTTPDownloadTaskFavi(int pageNumber){
-			this.pageNumber = pageNumber;
-		}
+        int pageNumber = 0;
 
-		@Override
-		protected String doInBackground(String... params) {
-			String urlStr = params[0];
-			
-			SharedPreferences sharedPref = PreferenceManager
-					.getDefaultSharedPreferences(activity);
-			String displayed_items = sharedPref.getString("pref_key_numberofitems",
-					"10");
-			
-			SQLiteHelper database = new SQLiteHelper(activity);
-			List<FaviQuote> fqlist = database.getFaviQuotes(Integer.parseInt(displayed_items), pageNumber);
-			
-			String ids = "";
-			for(int i = 0; i < fqlist.size(); i++){
-				if(i == 0){
-					ids += fqlist.get(i).getId();
-				}else{
-					ids += "," +fqlist.get(i).getId();
-				}
-			}
-			
-			Log.d("Favlist-A", "IDS: "+ids);
-			
-			
-			// Create data variable for sent values to server 
-	           
+        HTTPDownloadTaskFavi(int pageNumber) {
+            this.pageNumber = pageNumber;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String urlStr = params[0];
+
+            SharedPreferences sharedPref = PreferenceManager
+                    .getDefaultSharedPreferences(activity);
+            String displayed_items = sharedPref.getString("pref_key_numberofitems",
+                    "10");
+
+            SQLiteHelper database = new SQLiteHelper(activity);
+            List<FaviQuote> fqlist = database.getFaviQuotes(Integer.parseInt(displayed_items), pageNumber);
+
+            String ids = "";
+            for (int i = 0; i < fqlist.size(); i++) {
+                if (i == 0) {
+                    ids += fqlist.get(i).getId();
+                } else {
+                    ids += "," + fqlist.get(i).getId();
+                }
+            }
+
+            Log.d("Favlist-A", "IDS: " + ids);
+
+
+            // Create data variable for sent values to server
+
             String data = null;
-			try {
-				data = URLEncoder.encode("ids", "iso-8859-1")
-				             + "=" + URLEncoder.encode(ids, "iso-8859-1");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
- 
-            
+            try {
+                data = URLEncoder.encode("ids", "iso-8859-1")
+                        + "=" + URLEncoder.encode(ids, "iso-8859-1");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+
             String result = "";
-            BufferedReader reader=null;
- 
+            BufferedReader reader = null;
+
             // Send data
-          try
-          {
-            
-              // Defined URL  where to send data
-              URL url = new URL(urlStr);
-               
-           // Send POST data request
- 
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write( data );
-            wr.flush();
-        
-            // Get the server response
-             
-          reader = new BufferedReader(new InputStreamReader(conn.getInputStream(),"iso-8859-1"));
-          StringBuilder sb = new StringBuilder();
-          String line = null;
-          
-          // Read Server Response
-          while((line = reader.readLine()) != null)
-              {
-                     // Append server response in string
-                     sb.append(line + "\n");
-              }
-              
-              
-              result = sb.toString();
-          }
-          catch(Exception ex)
-          {
-               
-          }
-          finally
-          {
-              try
-              {
-   
-                  reader.close();
-              }
- 
-              catch(Exception ex) {}
-          }
+            try {
 
-			Log.d("Downloaded", result);
-			return result;
-		}
+                // Defined URL  where to send data
+                URL url = new URL(urlStr);
 
-		// Wenn die Daten heruntergeladen wurden in die Zitate reinstecken
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			Log.d("Favlist-A", "result: "+result);
-			// Wenn nichts heruntergeladen wurde dann auch nichts setzen
-			listview.setEmptyView(activity.findViewById(R.id.empty_List));
-			// Visibility 8 = Invis + no space
-			activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
+                // Send POST data request
 
-			// Quotes umformen
-			Gson gson = new Gson();
-			try {
-				JsonReader reader = new JsonReader(new StringReader(result));
-				reader.setLenient(true);
-				GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                wr.write(data);
+                wr.flush();
 
-				// Leere Quotelist erstellen
-				quotelist = new ArrayList<Quote>();
+                // Get the server response
 
-				// add quotes into the table
-				for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
+                reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "iso-8859-1"));
+                StringBuilder sb = new StringBuilder();
 
-					int ident = gquotes.Inhalte.data.get(i).ident;
-					String ts = gquotes.Inhalte.data.get(i).ts;
-					int rating = gquotes.Inhalte.data.get(i).rating;
-					String content = gquotes.Inhalte.data.get(i).content;
-					content = content.replace("[newline]", "\n");
+                String line;
+                // Read Server Response
+                while ((line = reader.readLine()) != null) {
+                    // Append server response in string
+                    sb.append(line);
+                    sb.append("\n");
+                }
 
-					Quote quote = new Quote(ident, ts, rating, content);
-					quotelist.add(quote);
-				}
 
-				mAdapter.notifyDataSetChanged();
-				listview.setSelection(0);
+                result = sb.toString();
+            } catch (Exception ex) {
+                Log.e("ListAdapter", ex.getMessage());
+            } finally {
+                try {
+                    reader.close();
+                } catch (Exception ex) {
+                    Log.e("ListAdapter", ex.getMessage());
+                }
+            }
 
-			} catch (Exception e) {
-				Log.d("ListAdapter", "Error: " + e.getMessage());
-			}
+            Log.d("Downloaded", result);
+            return result;
+        }
+
+        // Wenn die Daten heruntergeladen wurden in die Zitate reinstecken
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.d("Favlist-A", "result: " + result);
+            // Wenn nichts heruntergeladen wurde dann auch nichts setzen
+            listview.setEmptyView(activity.findViewById(R.id.empty_List));
+            // Visibility 8 = Invis + no space
+            activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
+
+            // Quotes umformen
+            Gson gson = new Gson();
+            try {
+                JsonReader reader = new JsonReader(new StringReader(result));
+                reader.setLenient(true);
+                GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
+
+                // Leere Quotelist erstellen
+                quotelist = new ArrayList();
+
+                // add quotes into the table
+                for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
+
+                    int ident = gquotes.Inhalte.data.get(i).ident;
+                    String ts = gquotes.Inhalte.data.get(i).ts;
+                    int rating = gquotes.Inhalte.data.get(i).rating;
+                    String content = gquotes.Inhalte.data.get(i).content;
+                    content = content.replace("[newline]", "\n");
+
+                    Quote quote = new Quote(ident, ts, rating, content);
+                    quotelist.add(quote);
+                }
+
+                mAdapter.notifyDataSetChanged();
+                listview.setSelection(0);
+
+            } catch (Exception e) {
+                Log.d("ListAdapter", "Error: " + e.getMessage());
+            }
 
 			/*
 			 * Editor edit =
@@ -504,8 +496,8 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 			 * res_text = sharedPref.getString("pref_key_randomtab_data", null);
 			 */
 
-		}
+        }
 
-	}
+    }
 
 }

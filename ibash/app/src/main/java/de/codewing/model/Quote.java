@@ -1,24 +1,10 @@
-package de.codewing.fragments;
+package de.codewing.model;
 
-public class Quote {
-	
-	private int ident;
-	private String ts;
+public class Quote extends FaviQuote {
+
 	private int rating;
 	private String quotetext;
-	
-	public int getIdent() {
-		return ident;
-	}
-	public void setIdent(int ident) {
-		this.ident = ident;
-	}
-	public String getTs() {
-		return ts;
-	}
-	public void setTs(String ts) {
-		this.ts = ts;
-	}
+
 	public int getRating() {
 		return rating;
 	}
@@ -32,9 +18,7 @@ public class Quote {
 		this.quotetext = quotetext;
 	}
 	public Quote(int ident, String ts, int rating, String quotetext) {
-		super();
-		this.ident = ident;
-		this.ts = ts;
+		super(ts, ident);
 		this.rating = rating;
 		this.quotetext = quotetext;
 	}

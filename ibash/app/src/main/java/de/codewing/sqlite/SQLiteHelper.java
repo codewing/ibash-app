@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.codewing.model.FaviQuote;
+
 public class SQLiteHelper extends SQLiteOpenHelper {
 
 	public static final String TABLE_IBASH_FAVOURITES = "favourites";
@@ -31,7 +33,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		String DATABASE_CREATE = "create table "
 				+ TABLE_IBASH_FAVOURITES + "(" + COLUMN_ID
 				+ " integer primary key, " + COLUMN_DATE_ADDED
-				+ " date not null);";
+				+ " ts not null);";
 		database.execSQL(DATABASE_CREATE);
 	}
 
@@ -54,7 +56,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	    values.put(COLUMN_ID, id); 
 	    
 	    // Date added
-	    // set the format to sql date time
+	    // set the format to sql ts time
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 	    Date date = new Date();
 	    values.put(COLUMN_DATE_ADDED, dateFormat.format(date));			
@@ -79,7 +81,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	    
 	    FaviQuote fquote = new FaviQuote();
 	    fquote.setId(Integer.parseInt(cursor.getString(0)));
-	    fquote.setDate(cursor.getString(1));
+	    fquote.setTs(cursor.getString(1));
 	    
 	    // return Quote
 	    return fquote;
@@ -92,7 +94,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	 
 	// Getting All Quotes
 	public List<FaviQuote> getFaviQuotes(int number, int page) {
-		List<FaviQuote> quoteList = new ArrayList<FaviQuote>();
+		List<FaviQuote> quoteList = new ArrayList();
 		int startPos = number * (page - 1);
 	    // Select All Query
 	    String selectQuery = "SELECT  * FROM " + TABLE_IBASH_FAVOURITES + " ";
@@ -110,7 +112,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	        do {
 	        	FaviQuote fquote = new FaviQuote();
 	        	fquote.setId(Integer.parseInt(cursor.getString(0)));
-	        	fquote.setDate(cursor.getString(1));
+	        	fquote.setTs(cursor.getString(1));
 	            // Adding contact to list
 	        	quoteList.add(fquote);
 	        } while (cursor.moveToNext());

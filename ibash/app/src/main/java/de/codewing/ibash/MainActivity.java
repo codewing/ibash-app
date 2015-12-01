@@ -258,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
-        		
     }
 
 	@Override
