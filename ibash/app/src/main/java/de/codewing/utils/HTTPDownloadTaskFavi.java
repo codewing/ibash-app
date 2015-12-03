@@ -16,6 +16,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import de.codewing.controller.callbacks.QuotesCallback;
 import de.codewing.model.Quote;
 import de.codewing.view.GsonQuotes;
 
@@ -23,6 +24,11 @@ import de.codewing.view.GsonQuotes;
  * Created by codewing on 03.12.2015.
  */
 public class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
+    QuotesCallback callbackObj;
+    public HTTPDownloadTaskFavi(QuotesCallback callbackObj) {
+        this.callbackObj = callbackObj;
+    }
+
     @Override
     protected String doInBackground(String... params) {
         // Create data variable for sent values to server
@@ -85,14 +91,11 @@ public class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
 
         //parse Quotes
         Gson gson = new Gson();
-        ArrayList quotelist;
+        ArrayList quotelist = new ArrayList<Quote>();
         try {
             JsonReader reader = new JsonReader(new StringReader(result));
             reader.setLenient(true);
             GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
-
-            // Leere Quotelist erstellen
-            quotelist = new ArrayList<Quote>();
 
             // add quotes into the table
             for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
@@ -110,5 +113,6 @@ public class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
         } catch (Exception e) {
             Log.d("ListAdapter", "Error: " + e.getMessage());
         }
+        callbackObj.onReceiveQuotes(quotelist);
     }
 }
