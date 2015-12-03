@@ -173,8 +173,30 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
         }
 
         // Quotes herunterladen
-        HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi(pageNumber);
-        dl.execute("http://www.ibash.de/iphone/quotearray.php");
+        HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi();
+        dl.execute(getFaviIDs(pageNumber));
+    }
+
+    private String getFaviIDs(int pageNumber){
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(activity);
+        String displayed_items = sharedPref.getString("pref_key_numberofitems",
+                "10");
+
+        SQLiteHelper database = new SQLiteHelper(activity);
+        List<FaviQuote> fqlist = database.getFaviQuotes(Integer.parseInt(displayed_items), pageNumber);
+
+        String ids = "";
+        for (int i = 0; i < fqlist.size(); i++) {
+            if (i == 0) {
+                ids += fqlist.get(i).getId();
+            } else {
+                ids += "," + fqlist.get(i).getId();
+            }
+        }
+
+        Log.d("Favlist-A", "IDS: " + ids);
+        return ids;
     }
 
     public void updateDatensaetze(String pagenumber, Button bt_next, String searchterm,
@@ -253,9 +275,9 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 
         @Override
         protected String doInBackground(String... params) {
-            String urlStr = params[0];
 
             Log.d("istWarte", "" + istWarte);
+            String urlStr = params[0];
 
             URL url;
             InputStream is = null;
@@ -358,43 +380,13 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
     }
 
     private class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
-
-        int pageNumber = 0;
-
-        HTTPDownloadTaskFavi(int pageNumber) {
-            this.pageNumber = pageNumber;
-        }
-
         @Override
         protected String doInBackground(String... params) {
-            String urlStr = params[0];
-
-            SharedPreferences sharedPref = PreferenceManager
-                    .getDefaultSharedPreferences(activity);
-            String displayed_items = sharedPref.getString("pref_key_numberofitems",
-                    "10");
-
-            SQLiteHelper database = new SQLiteHelper(activity);
-            List<FaviQuote> fqlist = database.getFaviQuotes(Integer.parseInt(displayed_items), pageNumber);
-
-            String ids = "";
-            for (int i = 0; i < fqlist.size(); i++) {
-                if (i == 0) {
-                    ids += fqlist.get(i).getId();
-                } else {
-                    ids += "," + fqlist.get(i).getId();
-                }
-            }
-
-            Log.d("Favlist-A", "IDS: " + ids);
-
-
             // Create data variable for sent values to server
-
             String data = null;
             try {
                 data = URLEncoder.encode("ids", "iso-8859-1")
-                        + "=" + URLEncoder.encode(ids, "iso-8859-1");
+                        + "=" + URLEncoder.encode(params[0], "iso-8859-1");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -405,12 +397,10 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 
             // Send data
             try {
-
                 // Defined URL  where to send data
-                URL url = new URL(urlStr);
+                URL url = new URL("http://www.ibash.de/iphone/quotearray.php");
 
                 // Send POST data request
-
                 URLConnection conn = url.openConnection();
                 conn.setDoOutput(true);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -418,7 +408,6 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
                 wr.flush();
 
                 // Get the server response
-
                 reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "iso-8859-1"));
                 StringBuilder sb = new StringBuilder();
 
