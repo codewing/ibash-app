@@ -1,4 +1,4 @@
-package de.codewing.ibash;
+package de.codewing.model;
 
 public class Comment {
 	String nick;

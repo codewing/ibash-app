@@ -1,4 +1,4 @@
-package de.codewing.fragments;
+package de.codewing.view;
 
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceFragmentCompat;

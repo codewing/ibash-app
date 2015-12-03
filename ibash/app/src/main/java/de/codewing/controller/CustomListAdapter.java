@@ -1,4 +1,4 @@
-package de.codewing.fragments;
+package de.codewing.controller;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,20 +29,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.codewing.ibash.CommentActivity;
 import de.codewing.ibash.R;
 import de.codewing.model.FaviQuote;
 import de.codewing.model.Quote;
 import de.codewing.sqlite.SQLiteHelper;
+import de.codewing.utils.HTTPDownloadTaskFavi;
+import de.codewing.view.CommentActivity;
+import de.codewing.view.GsonQuotes;
 
 public class CustomListAdapter extends BaseAdapter implements OnItemClickListener, OnItemLongClickListener {
     private final LayoutInflater mInflater;
@@ -367,116 +365,6 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
 
 			/*
              * Editor edit =
-			 * PreferenceManager.getDefaultSharedPreferences(activity).edit();
-			 * edit.putString("pref_key_randomtab_data", result); edit.commit();
-			 * 
-			 * SharedPreferences sharedPref =
-			 * PreferenceManager.getDefaultSharedPreferences(activity); String
-			 * res_text = sharedPref.getString("pref_key_randomtab_data", null);
-			 */
-
-        }
-
-    }
-
-    private class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            // Create data variable for sent values to server
-            String data = null;
-            try {
-                data = URLEncoder.encode("ids", "iso-8859-1")
-                        + "=" + URLEncoder.encode(params[0], "iso-8859-1");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-
-            String result = "";
-            BufferedReader reader = null;
-
-            // Send data
-            try {
-                // Defined URL  where to send data
-                URL url = new URL("http://www.ibash.de/iphone/quotearray.php");
-
-                // Send POST data request
-                URLConnection conn = url.openConnection();
-                conn.setDoOutput(true);
-                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-                wr.write(data);
-                wr.flush();
-
-                // Get the server response
-                reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "iso-8859-1"));
-                StringBuilder sb = new StringBuilder();
-
-                String line;
-                // Read Server Response
-                while ((line = reader.readLine()) != null) {
-                    // Append server response in string
-                    sb.append(line);
-                    sb.append("\n");
-                }
-
-
-                result = sb.toString();
-            } catch (Exception ex) {
-                Log.e("ListAdapter", ex.getMessage());
-            } finally {
-                try {
-                    reader.close();
-                } catch (Exception ex) {
-                    Log.e("ListAdapter", ex.getMessage());
-                }
-            }
-
-            Log.d("Downloaded", result);
-            return result;
-        }
-
-        // Wenn die Daten heruntergeladen wurden in die Zitate reinstecken
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.d("Favlist-A", "result: " + result);
-            // Wenn nichts heruntergeladen wurde dann auch nichts setzen
-            listview.setEmptyView(activity.findViewById(R.id.empty_List));
-            // Visibility 8 = Invis + no space
-            activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
-
-            // Quotes umformen
-            Gson gson = new Gson();
-            try {
-                JsonReader reader = new JsonReader(new StringReader(result));
-                reader.setLenient(true);
-                GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
-
-                // Leere Quotelist erstellen
-                quotelist = new ArrayList();
-
-                // add quotes into the table
-                for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
-
-                    int ident = gquotes.Inhalte.data.get(i).ident;
-                    String ts = gquotes.Inhalte.data.get(i).ts;
-                    int rating = gquotes.Inhalte.data.get(i).rating;
-                    String content = gquotes.Inhalte.data.get(i).content;
-                    content = content.replace("[newline]", "\n");
-
-                    Quote quote = new Quote(ident, ts, rating, content);
-                    quotelist.add(quote);
-                }
-
-                mAdapter.notifyDataSetChanged();
-                listview.setSelection(0);
-
-            } catch (Exception e) {
-                Log.d("ListAdapter", "Error: " + e.getMessage());
-            }
-
-			/*
-			 * Editor edit =
 			 * PreferenceManager.getDefaultSharedPreferences(activity).edit();
 			 * edit.putString("pref_key_randomtab_data", result); edit.commit();
 			 * 

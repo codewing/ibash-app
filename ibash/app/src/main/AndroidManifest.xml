@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="de.codewing.ibash.SplashActivity"
+            android:name="de.codewing.view.SplashActivity"
             android:label="@string/app_name"
             android:configChanges="orientation">
             <intent-filter>
@@ -30,7 +30,7 @@
             android:configChanges="orientation"
             android:windowSoftInputMode="stateUnchanged">
         </activity>
-        <activity android:name="CommentActivity" >
+        <activity android:name="de.codewing.view.CommentActivity" >
         </activity>
 
     </application>

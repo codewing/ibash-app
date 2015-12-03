@@ -1,4 +1,4 @@
-package de.codewing.ibash;
+package de.codewing.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +27,10 @@ import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import de.codewing.ibash.R;
+import de.codewing.model.Comment;
+import de.codewing.model.GsonComment;
 
 public class CommentActivity extends AppCompatActivity {
 	ListView lv;
@@ -169,11 +173,11 @@ public class CommentActivity extends AppCompatActivity {
 				
 				// add quotes into the table
 				for (int i = 0; i < gcomments.comments.size(); i++) {
-					Log.d("C-Tag", "4."+i + "\n"+ gcomments.comments.get(i).text);
-					String nick = gcomments.comments.get(i).nick;
-					String ts = gcomments.comments.get(i).ts;
+					Log.d("C-Tag", "4."+i + "\n"+ gcomments.comments.get(i).getText());
+					String nick = gcomments.comments.get(i).getNick();
+					String ts = gcomments.comments.get(i).getTs();
 					ts.replace(" ", " - ");
-					String text = gcomments.comments.get(i).text;
+					String text = gcomments.comments.get(i).getText();
 					text = text.replace("[newline]", "\n");
 					Comment comment = new Comment();
 					comment.setNick(nick);

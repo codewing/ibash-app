@@ -1,7 +1,10 @@
-package de.codewing.fragments;
+package de.codewing.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -15,48 +18,58 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import de.codewing.controller.CustomListAdapter;
 import de.codewing.ibash.LikeOrDislike;
 import de.codewing.ibash.R;
 import de.codewing.sqlite.SQLiteHelper;
-
-public class FavouritesFragment extends Fragment implements
-		OnClickListener {
-
+ 
+public class BestFragment extends Fragment implements OnClickListener {
+	
 	CustomListAdapter cla;
 	EditText et_pagenumber;
 	int pagenumber = 1;
 	Button bt_next;
 	Button bt_reload;
 	Button bt_previous;
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_new_best_favi,
-				container, false);
-
-		ListView l = (ListView) rootView.findViewById(R.id.listView_quotes);
-		cla = new CustomListAdapter(inflater, getActivity(), "favourites", l);
+	
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_new_best_favi, container, false);
+        
+        ListView l = (ListView) rootView.findViewById(R.id.listView_quotes);
+		cla = new CustomListAdapter(inflater, getActivity(), "best", l);
 		l.setEmptyView(rootView.findViewById(R.id.loadingCircle));
 		l.setAdapter(cla);
 		l.setOnItemClickListener(cla);
 
 		registerForContextMenu(l);
-
+		
 		// Enable clicks
 		bt_next = (Button) rootView.findViewById(R.id.button_next);
 		bt_next.setOnClickListener(this);
-		bt_next.setEnabled(false);
 		bt_previous = (Button) rootView.findViewById(R.id.button_previous);
 		bt_previous.setOnClickListener(this);
-		rootView.findViewById(R.id.button_reload).setOnClickListener(this);
+		bt_reload = (Button) rootView.findViewById(R.id.button_reload);
+		bt_reload.setOnClickListener(this);
 
 		et_pagenumber = (EditText) rootView
 				.findViewById(R.id.editText_pagenumber);
 
-		cla.updateFavourites(bt_next, pagenumber);
+		// Pagenumber auslesen wenn gewollt
+		SharedPreferences sharedPref = PreferenceManager
+				.getDefaultSharedPreferences(getActivity());
+		boolean savePageID = sharedPref.getBoolean("pref_key_savepageid", true);
 
+		if (savePageID) {
+			pagenumber = sharedPref.getInt("pref_key_best_pageid", 1);
+			et_pagenumber.setText("" + pagenumber);
+		}
+
+		cla.updateDatensaetze("" + pagenumber, bt_next);
+		
 		// Buttons checken
 		// Previous Button
 		if (pagenumber == 1 || pagenumber == 0) {
@@ -64,33 +77,39 @@ public class FavouritesFragment extends Fragment implements
 		} else {
 			bt_previous.setEnabled(true);
 		}
+		// next Button
+		if (cla.lastpage != 1) {
+			bt_next.setEnabled(true);
+		} else {
+			bt_next.setEnabled(false);
+		}
+
+		
 
 		return rootView;
 	}
 
 	@Override
 	public void onClick(View v) {
+		Log.d("Clicker", "Best klicked!");
 		switch (v.getId()) {
 		case (R.id.button_next): {
 			pagenumber++;
-		}
-			break;
+		}break;
 
 		case (R.id.button_previous): {
 			pagenumber--;
-		}
-			break;
+		}break;
 
-		case (R.id.button_reload): {
-			if (!et_pagenumber.getText().toString().equals(""))
-				pagenumber = Integer.parseInt(et_pagenumber.getText()
-						.toString());
-		}
-			break;
+		case (R.id.button_reload):{
+			if(!et_pagenumber.getText().toString().isEmpty())
+				pagenumber = Integer.parseInt(et_pagenumber.getText().toString());
+			
+		}break;
 
 		}
 		// Immer aktualisieren und immer Daten Speichern
-		cla.updateFavourites(bt_next, pagenumber);
+		cla.updateDatensaetze("" + pagenumber, bt_next);
 		et_pagenumber.setText("" + pagenumber);
 
 		// Buttons checken
@@ -100,15 +119,27 @@ public class FavouritesFragment extends Fragment implements
 		} else {
 			bt_previous.setEnabled(true);
 		}
-	}
+		// next Button
+		if (cla.lastpage != 1) {
+			bt_next.setEnabled(true);
+		} else {
+			bt_next.setEnabled(false);
+		}
 
+		// Daten in de SharedPreferences speichern
+		Editor edit = PreferenceManager.getDefaultSharedPreferences(
+				getActivity()).edit();
+		edit.putInt("pref_key_best_pageid", pagenumber);
+		edit.commit();
+	}
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle(getResources().getString(R.string.context_header));
-		getActivity().getMenuInflater().inflate(R.menu.listitem_context_favi, menu);
+		getActivity().getMenuInflater().inflate(R.menu.listitem_context, menu);
 	}
 
 	@Override
@@ -140,11 +171,16 @@ public class FavouritesFragment extends Fragment implements
 			return true;
 		}
 
-		case R.id.context_removefromfavi: {
-			Log.d("Context chosen", "delete Favi");
+		case R.id.context_addtofavi: {
+			Log.d("Context chosen", "toFavi");
 			SQLiteHelper database = new SQLiteHelper(getActivity());
-			database.removeFaviQuote(itemid);
-			cla.updateFavourites(bt_next, pagenumber);
+			if(database.getSingleQuote(itemid) == null){
+				database.addFaviQuote(itemid);
+				Log.d("toFavi", "successfully added");
+				Toast.makeText(getActivity(), getResources().getString(R.string.database_added), Toast.LENGTH_SHORT).show();
+			}else{
+				Toast.makeText(getActivity(), getResources().getString(R.string.database_already_added), Toast.LENGTH_SHORT).show();
+			}
 			
 			return true;
 		}
@@ -153,3 +189,4 @@ public class FavouritesFragment extends Fragment implements
 		return super.onContextItemSelected(item);
 	}
 }
+

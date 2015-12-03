@@ -1,4 +1,4 @@
-package de.codewing.fragments;
+package de.codewing.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import de.codewing.controller.CustomListAdapter;
 import de.codewing.ibash.LikeOrDislike;
 import de.codewing.ibash.R;
 import de.codewing.sqlite.SQLiteHelper;

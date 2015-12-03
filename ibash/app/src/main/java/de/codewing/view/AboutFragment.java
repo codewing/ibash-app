@@ -1,4 +1,4 @@
-package de.codewing.fragments;
+package de.codewing.view;
 
 import android.content.Intent;
 import android.net.Uri;

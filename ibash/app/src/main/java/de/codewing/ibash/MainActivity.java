@@ -16,14 +16,15 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import de.codewing.fragments.AboutFragment;
-import de.codewing.fragments.BestFragment;
-import de.codewing.fragments.FavouritesFragment;
-import de.codewing.fragments.NewFragment;
-import de.codewing.fragments.PreferenceFragment;
-import de.codewing.fragments.QueueFragment;
-import de.codewing.fragments.RandomFragment;
-import de.codewing.fragments.SearchFragment;
+import de.codewing.controller.MenuListAdapter;
+import de.codewing.view.AboutFragment;
+import de.codewing.view.BestFragment;
+import de.codewing.view.FavouritesFragment;
+import de.codewing.view.NewFragment;
+import de.codewing.view.PreferenceFragment;
+import de.codewing.view.QueueFragment;
+import de.codewing.view.RandomFragment;
+import de.codewing.view.SearchFragment;
  
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
