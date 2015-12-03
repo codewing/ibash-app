@@ -37,9 +37,10 @@
         android:layout_height="wrap_content" >
         <TextView
             android:id="@+id/Comment_text"
-            android:text="C-C-Combobreaker"
+            android:text="C-C-Combobreaker http://codewing.de"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:autoLink="web"/>
     </LinearLayout>
 
 </LinearLayout>
