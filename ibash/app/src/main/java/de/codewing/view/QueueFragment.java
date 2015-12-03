@@ -15,8 +15,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
 import de.codewing.controller.CustomListAdapter;
-import de.codewing.ibash.LikeOrDislike;
 import de.codewing.ibash.R;
+import de.codewing.utils.LikeOrDislike;
  
 public class QueueFragment extends Fragment implements OnClickListener{
 	

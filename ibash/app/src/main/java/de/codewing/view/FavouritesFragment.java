@@ -1,7 +1,9 @@
 package de.codewing.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -17,9 +19,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import de.codewing.controller.CustomListAdapter;
-import de.codewing.ibash.LikeOrDislike;
 import de.codewing.ibash.R;
 import de.codewing.sqlite.SQLiteHelper;
+import de.codewing.utils.LikeOrDislike;
 
 public class FavouritesFragment extends Fragment implements
 		OnClickListener {
@@ -56,15 +58,7 @@ public class FavouritesFragment extends Fragment implements
 		et_pagenumber = (EditText) rootView
 				.findViewById(R.id.editText_pagenumber);
 
-		cla.updateFavourites(bt_next, pagenumber);
-
-		// Buttons checken
-		// Previous Button
-		if (pagenumber == 1 || pagenumber == 0) {
-			bt_previous.setEnabled(false);
-		} else {
-			bt_previous.setEnabled(true);
-		}
+		updateListButtonsTextEdit();
 
 		return rootView;
 	}
@@ -90,6 +84,11 @@ public class FavouritesFragment extends Fragment implements
 			break;
 
 		}
+
+		updateListButtonsTextEdit();
+	}
+
+	private void updateListButtonsTextEdit(){
 		// Immer aktualisieren und immer Daten Speichern
 		cla.updateFavourites(bt_next, pagenumber);
 		et_pagenumber.setText("" + pagenumber);
@@ -145,7 +144,14 @@ public class FavouritesFragment extends Fragment implements
 			Log.d("Context chosen", "delete Favi");
 			SQLiteHelper database = new SQLiteHelper(getActivity());
 			database.removeFaviQuote(itemid);
-			cla.updateFavourites(bt_next, pagenumber);
+
+			SharedPreferences sharedPref = PreferenceManager
+					.getDefaultSharedPreferences(getActivity());
+			int displayed_items = Integer.parseInt(sharedPref.getString("pref_key_numberofitems", "10"));
+			if(database.getFaviCount() <= displayed_items * (pagenumber-1)){
+				pagenumber--;
+			}
+			updateListButtonsTextEdit();
 			
 			return true;
 		}

@@ -1,4 +1,9 @@
-package de.codewing.ibash;
+package de.codewing.utils;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,10 +12,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
+import de.codewing.ibash.R;
 
 public class LikeOrDislike extends AsyncTask<String, Integer, String>{
 	

@@ -18,9 +18,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import de.codewing.controller.CustomListAdapter;
-import de.codewing.ibash.LikeOrDislike;
 import de.codewing.ibash.R;
 import de.codewing.sqlite.SQLiteHelper;
+import de.codewing.utils.LikeOrDislike;
  
 public class SearchFragment extends Fragment implements OnClickListener{
 
@@ -68,21 +68,15 @@ public class SearchFragment extends Fragment implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		Log.d("Clicker", "Search klicked!");
 		switch(v.getId()){
 		case(R.id.button_search):{
-			Log.d("Clicker", "Search clicked!");
 			Log.d("Search: ", et_searchterm.getText().toString());
-			cla.updateDatensaetze(""+1, bt_next, et_searchterm.getText().toString(), false);
+			pagenumber = 1;
+			cla.updateDatensaetze(""+pagenumber, bt_next, et_searchterm.getText().toString(), false);
 			getActivity().findViewById(R.id.loadingCircle).setVisibility(View.VISIBLE);
 			pagenumber = 1;
 			et_pagenumber.setText("" + pagenumber);
-			// next Button
-			if (cla.lastpage != 1) {
-				bt_next.setEnabled(true);
-			} else {
-				bt_next.setEnabled(false);
-			}
+			bt_next.setEnabled(false);
 		}break;
 		
 		case (R.id.button_next): {

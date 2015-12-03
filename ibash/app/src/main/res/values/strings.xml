@@ -60,7 +60,7 @@
     <string name="button_reload">(re)load</string>
     <string name="button_reroll">reroll</string>
     <string name="button_search">search</string>
-    <string name="search_term">enter searchterm</string>
+    <string name="search_term">searchterm or #quotenumber</string>
     <string name="one">1</string>
     <string name="headline_comments">comments:</string>
     

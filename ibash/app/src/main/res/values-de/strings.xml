@@ -60,7 +60,7 @@
     <string name="button_reload">laden</string>
     <string name="button_reroll">erneut würfeln</string>
     <string name="button_search">Suchen</string>
-    <string name="search_term">Suchbegriff eingeben</string>
+    <string name="search_term">Suchbegriff oder #ZitatID</string>
     <string name="one">1</string>
     <string name="headline_comments">Kommentare:</string>
     

@@ -21,9 +21,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import de.codewing.controller.CustomListAdapter;
-import de.codewing.ibash.LikeOrDislike;
 import de.codewing.ibash.R;
 import de.codewing.sqlite.SQLiteHelper;
+import de.codewing.utils.LikeOrDislike;
 
 public class NewFragment extends Fragment implements OnClickListener {
 

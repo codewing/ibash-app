@@ -34,6 +34,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.codewing.controller.callbacks.QuotesCallback;
 import de.codewing.ibash.R;
 import de.codewing.model.FaviQuote;
 import de.codewing.model.Quote;
@@ -42,7 +43,7 @@ import de.codewing.utils.HTTPDownloadTaskFavi;
 import de.codewing.view.CommentActivity;
 import de.codewing.view.GsonQuotes;
 
-public class CustomListAdapter extends BaseAdapter implements OnItemClickListener, OnItemLongClickListener {
+public class CustomListAdapter extends BaseAdapter implements QuotesCallback, OnItemClickListener, OnItemLongClickListener {
     private final LayoutInflater mInflater;
     private CustomListAdapter mAdapter = this;
     private final String type;
@@ -171,7 +172,7 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
         }
 
         // Quotes herunterladen
-        HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi();
+        HTTPDownloadTaskFavi dl = new HTTPDownloadTaskFavi(this);
         dl.execute(getFaviIDs(pageNumber));
     }
 
@@ -216,7 +217,12 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
         if (warte) {
             dl.execute("http://www.ibash.de/iphone/warte.php");
         } else {
-            dl.execute("http://www.ibash.de/iphone/query.php?term=" + searchterm + "&number=" + displayed_items + "&page=" + pagenumber);
+            if(searchterm.startsWith("#") && searchterm.length() > 1){
+                HTTPDownloadTaskFavi dlf = new HTTPDownloadTaskFavi(this);
+                dlf.execute(searchterm.substring(1));
+            }else{
+                dl.execute("http://www.ibash.de/iphone/query.php?term=" + searchterm + "&number=" + displayed_items + "&page=" + pagenumber);
+            }
         }
 
     }
@@ -262,6 +268,20 @@ public class CustomListAdapter extends BaseAdapter implements OnItemClickListene
                     Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    @Override
+    public void onReceiveQuotes(ArrayList<Quote> quotes) {
+
+        this.quotelist = quotes;
+        // Wenn nichts heruntergeladen wurde dann auch nichts setzen
+        listview.setEmptyView(activity.findViewById(R.id.empty_List));
+        // Visibility 8 = Invis + no space
+        activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
+
+        mAdapter.notifyDataSetChanged();
+
+        listview.setSelection(0);
     }
 
     private class HTTPDownloadTask extends AsyncTask<String, Integer, String> {
