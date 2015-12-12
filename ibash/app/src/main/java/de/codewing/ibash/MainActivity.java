@@ -149,9 +149,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d("main", "orientation changed");
     }
 
-
-
-
 	private void selectItem(int itemID) {
 
         SharedPreferences sharedPref = PreferenceManager
