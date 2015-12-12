@@ -44,7 +44,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
         <TextView
-            android:id="@+id/quote"
+            android:id="@+id/quoteText"
             android:layout_width="fill_parent"
             android:text="Test\nnewline\n omG!11111111111111111einself omg :d :D :D"
             android:layout_height="wrap_content" />

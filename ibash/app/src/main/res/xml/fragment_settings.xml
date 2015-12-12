@@ -20,6 +20,12 @@
             android:title="@string/pref_title_pageid"
             android:summary="@string/pref_summary_pageid"
             android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="pref_key_use_grey_text"
+            android:title="@string/pref_title_grey_text"
+            android:summary="@string/pref_summary_grey_text"
+            android:defaultValue="true" />
     </PreferenceCategory>
     
     <PreferenceCategory 

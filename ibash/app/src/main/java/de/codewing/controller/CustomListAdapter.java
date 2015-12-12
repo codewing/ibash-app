@@ -89,15 +89,20 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         TextView tv_id = (TextView) view.findViewById(R.id.id);
         TextView tv_ts = (TextView) view.findViewById(R.id.timestamp);
         TextView tv_rating = (TextView) view.findViewById(R.id.rating);
-        TextView tv_quote = (TextView) view.findViewById(R.id.quote);
+        TextView tv_quote = (TextView) view.findViewById(R.id.quoteText);
         tv_id.setText("" + quote.getId());
         tv_ts.setText(quote.getTs());
         tv_rating.setText("" + quote.getRating());
         tv_quote.setText(quote.getQuotetext() + "\n");
 
-        // Colorize rating?
+        // Colorize
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(activity);
+        boolean greyText = sharedPref.getBoolean("pref_key_use_grey_text", true);
+        if(!greyText){
+            tv_quote.setTextColor(Color.BLACK);
+        }
+
         boolean colorize = sharedPref.getBoolean("pref_key_colorizerating",
                 true);
         if (colorize) {

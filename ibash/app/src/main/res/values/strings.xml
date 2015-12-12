@@ -3,6 +3,8 @@
 
     <string name="app_name">ibash</string>
     <string name="action_settings">Settings</string>
+
+    <string name="update_news">Version 3.1 (10):\n\nSearch by id with #id1,id2,&#8230;\n\nSelect the color of the text in the settings (grey - black)</string>
     
     <!-- ListView_Extention Buttons + Messages -->
     <string name="plus">+</string>
@@ -70,7 +72,9 @@
     <string name="pref_summary_numberofitems">Change the amout of items displayed per page\nNote: This will decrease the loading speed (ty cpt. obvious)</string>
     <string name="pref_title_colorize">Colorize rating</string> 
     <string name="pref_title_pageid">Save pagenumber</string> 
-    <string name="pref_summary_pageid">Save current pagenumber for next start</string> 
+    <string name="pref_summary_pageid">Save current pagenumber for next start</string>
+    <string name="pref_title_grey_text">Grey text</string>
+    <string name="pref_summary_grey_text">If selected the text of the quotes and comments is grey, otherwise black</string>
     
     <string name="pref_title_misc">miscellaneous</string>
     <string name="pref_title_autostart">Autostart</string>

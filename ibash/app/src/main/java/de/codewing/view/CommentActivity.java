@@ -1,20 +1,14 @@
 package de.codewing.view;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -28,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import de.codewing.controller.CommentAdapter;
 import de.codewing.ibash.R;
 import de.codewing.model.Comment;
 import de.codewing.model.GsonComment;
@@ -43,7 +38,7 @@ public class CommentActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.layout_comment);
 		activity = this;
-		commentadapter = new CommentAdapter();
+		commentadapter = new CommentAdapter(this);
 		lv = (ListView) findViewById(R.id.listView_comments);
 		lv.setAdapter(commentadapter);
 		lv.setEmptyView(findViewById(R.id.loadingCircle));
@@ -79,38 +74,7 @@ public class CommentActivity extends AppCompatActivity {
 		HTTPDownloadTask dl = new HTTPDownloadTask();
 		dl.execute("http://www.ibash.de/iphone/comments.php?id="+id);
 	}
-	
-	class CommentAdapter extends BaseAdapter {
-		private final LayoutInflater mInflater;
-		public CommentAdapter() {
-			mInflater = (LayoutInflater) CommentActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		}
-		public int getCount() {
-			return commentlist.size();
-		}
-		public Comment getItem(int position) {
-			return commentlist.get(position);
-		}
-		public long getItemId(int position) {
-			return (long) position;
-		}
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LinearLayout itemView = (LinearLayout) mInflater.inflate(R.layout.listitem_comment, parent, false);
-			bindView(itemView, position);
-			return itemView;
-		}
-		private void bindView(LinearLayout view, int position) {
-			Comment comment = getItem(position);
-			view.setId((int) getItemId(position));
-			TextView tv_nick = (TextView) view.findViewById(R.id.Comment_Nickname);
-			TextView tv_ts = (TextView) view.findViewById(R.id.Comment_Datum);
-			TextView tv_text = (TextView) view.findViewById(R.id.Comment_text);
-			tv_nick.setText(comment.getNick());
-			tv_ts.setText(comment.getTs());
-			tv_text.setText(comment.getText());
-		}
-	}
-	
+
 	private class HTTPDownloadTask extends AsyncTask<String, Integer, String> {
 
 		String result="";

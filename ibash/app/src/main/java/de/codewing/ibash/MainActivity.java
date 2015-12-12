@@ -1,6 +1,7 @@
 package de.codewing.ibash;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,9 +17,9 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import de.codewing.controller.MenuListAdapter;
 import de.codewing.view.AboutFragment;
 import de.codewing.view.BestFragment;
+import de.codewing.view.ChangeLogDialog;
 import de.codewing.view.FavouritesFragment;
 import de.codewing.view.NewFragment;
 import de.codewing.view.PreferenceFragment;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     ActionBarDrawerToggle mDrawerToggle;
-    MenuListAdapter mMenuAdapter;
     Fragment fragment_new = new NewFragment();
     Fragment fragment_best = new BestFragment();
     Fragment fragment_random = new RandomFragment();
@@ -67,8 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
- 
-        // Set the MenuListAdapter to the ListView
+
         mNavigationView.setNavigationItemSelectedListener(this);
  
         // Enable ActionBar app icon to behave as action to toggle nav drawer
@@ -105,7 +104,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //orientation changes
             selectItem(sharedPref.getInt("currently_selected_fragment",0));
         }
+
+        int versionCodePreferences = sharedPref.getInt("changelog_versioncode",-1);
+        int versionCodeCurrent;
+        try{
+            versionCodeCurrent = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        }catch (PackageManager.NameNotFoundException e){
+            Log.e("ChangeLogDialog", "VersionCode not found! Error: " + e);
+            versionCodeCurrent = -1;
+        }
+        if(versionCodeCurrent != versionCodePreferences){
+            ChangeLogDialog changeLogDialog = new ChangeLogDialog();
+            changeLogDialog.show(getFragmentManager(),"fragment_changelogdialog");
+        }
     }
+
  
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
