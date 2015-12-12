@@ -70,7 +70,9 @@
     <string name="pref_summary_numberofitems">So viele Zitate werden angezeigt. Achtung: Je mehr Zitate desto länger dauert das Herunterladen der Zitate. Danke Cpt. Obvious</string>
     <string name="pref_title_colorize">Bewertung färben</string> 
     <string name="pref_title_pageid">Seitennummer speichern</string> 
-    <string name="pref_summary_pageid">Speichert die aktuelle Seite für den nächsten Start</string> 
+    <string name="pref_summary_pageid">Speichert die aktuelle Seite für den nächsten Start</string>
+    <string name="pref_title_grey_text">Grauer Text</string>
+    <string name="pref_summary_grey_text">Wenn selektiert, dann ist der Text von den Zitaten/Kommentarten grau, ansonsten schwarz.</string>
     
     <string name="pref_title_misc">Anderes</string>
     <string name="pref_title_autostart">Autostart</string>

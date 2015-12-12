@@ -70,7 +70,9 @@
     <string name="pref_summary_numberofitems">Change the amout of items displayed per page\nNote: This will decrease the loading speed (ty cpt. obvious)</string>
     <string name="pref_title_colorize">Colorize rating</string> 
     <string name="pref_title_pageid">Save pagenumber</string> 
-    <string name="pref_summary_pageid">Save current pagenumber for next start</string> 
+    <string name="pref_summary_pageid">Save current pagenumber for next start</string>
+    <string name="pref_title_grey_text">Grey text</string>
+    <string name="pref_summary_grey_text">If selected the text of the quotes and comments is grey, otherwise black</string>
     
     <string name="pref_title_misc">miscellaneous</string>
     <string name="pref_title_autostart">Autostart</string>

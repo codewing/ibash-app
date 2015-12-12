@@ -16,7 +16,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import de.codewing.controller.MenuListAdapter;
 import de.codewing.view.AboutFragment;
 import de.codewing.view.BestFragment;
 import de.codewing.view.FavouritesFragment;
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     ActionBarDrawerToggle mDrawerToggle;
-    MenuListAdapter mMenuAdapter;
     Fragment fragment_new = new NewFragment();
     Fragment fragment_best = new BestFragment();
     Fragment fragment_random = new RandomFragment();
@@ -67,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
- 
-        // Set the MenuListAdapter to the ListView
+        
         mNavigationView.setNavigationItemSelectedListener(this);
  
         // Enable ActionBar app icon to behave as action to toggle nav drawer
