@@ -10,14 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,13 +21,14 @@ import java.util.ArrayList;
 import de.codewing.controller.CommentAdapter;
 import de.codewing.ibash.R;
 import de.codewing.model.Comment;
-import de.codewing.model.GsonComment;
+import de.codewing.utils.ParseResult;
+import de.codewing.utils.Parser;
 
 public class CommentActivity extends AppCompatActivity {
+	public ArrayList<Comment> commentlist = new ArrayList<Comment>();
 	ListView lv;
 	CommentAdapter commentadapter;
 	Activity activity;
-	public ArrayList<Comment> commentlist = new ArrayList<Comment>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,42 +114,21 @@ public class CommentActivity extends AppCompatActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			Log.d("Comments:", "result: "+result);
+			Log.d("Comments:", "result: " + result);
 			// Wenn nichts heruntergeladen wurde dann auch nichts setzen
 			lv.setEmptyView(findViewById(R.id.empty_List));
 			// Visibility 8 = Invis + no space
 			findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
 
-			// Quotes umformen
-			Gson gson = new Gson();
 			try {
-				JsonReader reader = new JsonReader(new StringReader(result));
-				reader.setLenient(true);
-				
-				GsonComment gcomments = gson.fromJson(reader, GsonComment.class);
-				
-				// Leere Quotelist erstellen
-				commentlist = new ArrayList<Comment>();
+				ParseResult<Comment> parseResult = Parser.parseComments(result);
+				commentlist.clear();
+				commentlist.addAll(parseResult.getElements());
 
-				
-				// add quotes into the table
-				for (int i = 0; i < gcomments.comments.size(); i++) {
-					Log.d("C-Tag", "4."+i + "\n"+ gcomments.comments.get(i).getText());
-					String nick = gcomments.comments.get(i).getNick();
-					String ts = gcomments.comments.get(i).getTs();
-					ts.replace(" ", " - ");
-					String text = gcomments.comments.get(i).getText();
-					text = text.replace("[newline]", "\n");
-					Comment comment = new Comment();
-					comment.setNick(nick);
-					comment.setTs(ts);
-					comment.setText(text+"\n");
-					commentlist.add(comment);
-				}
 				commentadapter.notifyDataSetChanged();
 
 			} catch (Exception e) {
-				Log.d("ListAdapter-Comment", "Error: " + e.getMessage());
+				Log.d(this.getClass().getName() + "#onPostExecute", "Error: " + e.getMessage());
 			}
 			
 		}

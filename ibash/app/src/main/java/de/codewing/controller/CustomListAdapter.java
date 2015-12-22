@@ -22,14 +22,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,19 +36,22 @@ import de.codewing.model.FaviQuote;
 import de.codewing.model.Quote;
 import de.codewing.sqlite.SQLiteHelper;
 import de.codewing.utils.HTTPDownloadTaskFavi;
+import de.codewing.utils.ParseResult;
+import de.codewing.utils.Parser;
 import de.codewing.view.CommentActivity;
-import de.codewing.view.GsonQuotes;
 
 public class CustomListAdapter extends BaseAdapter implements QuotesCallback, OnItemClickListener, OnItemLongClickListener {
     private final LayoutInflater mInflater;
-    private CustomListAdapter mAdapter = this;
     private final String type;
-    private Activity activity;
-    private ListView listview;
     public int lastpage = 0;
-    Button bt_next;
     public Quote gewaehlterDatensatz = new Quote(1337, "NOW", 1337, "Errorquote");
     public int page;
+    Button bt_next;
+    private CustomListAdapter mAdapter = this;
+    private Activity activity;
+    private ListView listview;
+    // Datensatzliste
+    private ArrayList<Quote> quotelist = new ArrayList();
 
     public CustomListAdapter(LayoutInflater linflater, Activity activity,
                              String type, ListView lv) {
@@ -90,10 +89,10 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         TextView tv_ts = (TextView) view.findViewById(R.id.timestamp);
         TextView tv_rating = (TextView) view.findViewById(R.id.rating);
         TextView tv_quote = (TextView) view.findViewById(R.id.quoteText);
-        tv_id.setText("" + quote.getId());
+        tv_id.setText("" + quote.getIdent());
         tv_ts.setText(quote.getTs());
         tv_rating.setText("" + quote.getRating());
-        tv_quote.setText(quote.getQuotetext() + "\n");
+        tv_quote.setText(quote.getContent() + "\n");
 
         // Colorize
         SharedPreferences sharedPref = PreferenceManager
@@ -125,10 +124,10 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         Log.d("Clicker", "ListItem clicked: " + id);
         gewaehlterDatensatz = quotelist.get(position);
         Bundle quote = new Bundle();
-        quote.putInt("key_quote_id", gewaehlterDatensatz.getId());
+        quote.putInt("key_quote_id", gewaehlterDatensatz.getIdent());
         quote.putString("key_quote_ts", gewaehlterDatensatz.getTs());
         quote.putInt("key_quote_rating", gewaehlterDatensatz.getRating());
-        quote.putString("key_quote_content", gewaehlterDatensatz.getQuotetext());
+        quote.putString("key_quote_content", gewaehlterDatensatz.getContent());
         Intent launchComment = new Intent(activity, CommentActivity.class);
         launchComment.putExtras(quote);
         activity.startActivity(launchComment);
@@ -139,9 +138,6 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         Log.d("Clicker", "ListItem LONGclicked: " + id);
         return false;
     }
-
-    // Datensatzliste
-    private ArrayList<Quote> quotelist = new ArrayList();
 
     public void updateDatensaetze(String pagenumber, Button bt_next) {
         this.bt_next = bt_next;
@@ -193,9 +189,9 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         String ids = "";
         for (int i = 0; i < fqlist.size(); i++) {
             if (i == 0) {
-                ids += fqlist.get(i).getId();
+                ids += fqlist.get(i).getIdent();
             } else {
-                ids += "," + fqlist.get(i).getId();
+                ids += "," + fqlist.get(i).getIdent();
             }
         }
 
@@ -242,29 +238,13 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         // Visibility 8 = Invis + no space
         loadingCircle.setVisibility(View.INVISIBLE);
 
-        // Quotes umformen
-        Gson gson = new Gson();
+        //Parse quotes
         try {
             if (result == null) return;
-            JsonReader reader = new JsonReader(new StringReader(result));
-            reader.setLenient(true);
-            GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
 
-            // Leere Quotelist erstellen
-            quotelist = new ArrayList();
-
-            // add quotes into the table
-            for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
-
-                int ident = gquotes.Inhalte.data.get(i).ident;
-                String ts = gquotes.Inhalte.data.get(i).ts;
-                int rating = gquotes.Inhalte.data.get(i).rating;
-                String content = gquotes.Inhalte.data.get(i).content;
-                content = content.replace("[newline]", "\n");
-
-                Quote quote = new Quote(ident, ts, rating, content);
-                quotelist.add(quote);
-            }
+            ParseResult parseResult = Parser.parseQuotes(result);
+            quotelist.clear();
+            quotelist.addAll(parseResult.getElements());
 
             mAdapter.notifyDataSetChanged();
 
@@ -340,30 +320,15 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
             // Visibility 8 = Invis + no space
             activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
 
-            // Quotes umformen
-            Gson gson = new Gson();
+            //Parse quotes
             try {
-                JsonReader reader = new JsonReader(new StringReader(result));
-                reader.setLenient(true);
-                GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
-
-                // Leere Quotelist erstellen
-                quotelist = new ArrayList();
-
-                // add quotes into the table
-                for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
-
-                    int ident = gquotes.Inhalte.data.get(i).ident;
-                    String ts = gquotes.Inhalte.data.get(i).ts;
-                    int rating = gquotes.Inhalte.data.get(i).rating;
-                    String content = gquotes.Inhalte.data.get(i).content;
-                    content = content.replace("[newline]", "\n");
-
-                    Quote quote = new Quote(ident, ts, rating, content);
-                    quotelist.add(quote);
-                }
+                ParseResult<Quote> parseResult = Parser.parseQuotes(result);
+                boolean lastPage = parseResult.isLastPage();
+                quotelist.clear();
+                quotelist.addAll(parseResult.getElements());
 
                 mAdapter.notifyDataSetChanged();
+
                 Log.d("type - nachher download", type);
                 if (type.equals("random")) {
                     Editor edit = PreferenceManager.getDefaultSharedPreferences(activity).edit();
@@ -375,8 +340,7 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
                 // Random eigentlich auch aber fail gecoded :D
                 Log.d("istWarte - nach dl", "" + istWarte);
                 if (!istWarte && !type.equalsIgnoreCase("random")) {
-                    lastpage = Integer.parseInt(gquotes.Inhalte.last_page);
-                    if (lastpage == 1) {
+                    if (lastPage) {
                         bt_next.setEnabled(false);
                     } else {
                         bt_next.setEnabled(true);
@@ -385,18 +349,8 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
                 listview.setSelection(0);
 
             } catch (Exception e) {
-                Log.d("ListAdapter", "Error: " + e.getMessage());
+                Log.d(this.getClass().getName() + "#onPostExecute", "Error: " + e.getMessage());
             }
-
-			/*
-             * Editor edit =
-			 * PreferenceManager.getDefaultSharedPreferences(activity).edit();
-			 * edit.putString("pref_key_randomtab_data", result); edit.commit();
-			 * 
-			 * SharedPreferences sharedPref =
-			 * PreferenceManager.getDefaultSharedPreferences(activity); String
-			 * res_text = sharedPref.getString("pref_key_randomtab_data", null);
-			 */
 
         }
 

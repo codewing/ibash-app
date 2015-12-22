@@ -122,7 +122,7 @@ public class SearchFragment extends Fragment implements OnClickListener{
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    int index = info.position;
-	    int itemid = listAdapter.getItem(index).getId();
+		int itemid = listAdapter.getItem(index).getIdent();
 		Log.d("Context opened", "onSelect");
 		LikeOrDislike lod = new LikeOrDislike(getActivity());
 		switch (item.getItemId()) {
@@ -141,7 +141,7 @@ public class SearchFragment extends Fragment implements OnClickListener{
 			Log.d("Context chosen", "share");
 			Intent sendIntent = new Intent();
 			sendIntent.setAction(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_TEXT, listAdapter.getItem(index).getQuotetext() + "\n"+getActivity().getResources().getString(R.string.shared_via));
+			sendIntent.putExtra(Intent.EXTRA_TEXT, listAdapter.getItem(index).getContent() + "\n" + getActivity().getResources().getString(R.string.shared_via));
 			sendIntent.setType("text/plain");
 			startActivity(sendIntent);
 			return true;

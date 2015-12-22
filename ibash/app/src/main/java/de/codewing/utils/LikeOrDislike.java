@@ -59,6 +59,7 @@ public class LikeOrDislike extends AsyncTask<String, Integer, String>{
 	
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
+		Log.d(this.getClass().getName() + "#onPostExecute", "Result: " + result);
 		if(!result.equalsIgnoreCase("Sie haben dieses Zitat bereits bewertet!")){
 			Toast.makeText(context, context.getResources().getString(R.string.rating_success), Toast.LENGTH_SHORT).show();
 		}else{

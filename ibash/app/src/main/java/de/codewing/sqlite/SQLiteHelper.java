@@ -41,7 +41,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(SQLiteHelper.class.getName(), "Upgrading database from version "
 				+ oldVersion + " to " + newVersion
-				+ ", which will destroy all old data");
+				+ ", which will destroy all old quotes");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_IBASH_FAVOURITES);
 		onCreate(db);
 	}
@@ -80,8 +80,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	    
 	    
 	    FaviQuote fquote = new FaviQuote();
-	    fquote.setId(Integer.parseInt(cursor.getString(0)));
-	    fquote.setTs(cursor.getString(1));
+			fquote.setIdent(Integer.parseInt(cursor.getString(0)));
+			fquote.setTs(cursor.getString(1));
 	    
 	    // return Quote
 	    return fquote;
@@ -111,8 +111,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	    if (cursor.moveToFirst()) {
 	        do {
 	        	FaviQuote fquote = new FaviQuote();
-	        	fquote.setId(Integer.parseInt(cursor.getString(0)));
-	        	fquote.setTs(cursor.getString(1));
+				fquote.setIdent(Integer.parseInt(cursor.getString(0)));
+				fquote.setTs(cursor.getString(1));
 	            // Adding contact to list
 	        	quoteList.add(fquote);
 	        } while (cursor.moveToNext());

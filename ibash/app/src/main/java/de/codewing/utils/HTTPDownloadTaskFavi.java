@@ -3,22 +3,16 @@ package de.codewing.utils;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 
 import de.codewing.controller.callbacks.QuotesCallback;
 import de.codewing.model.Quote;
-import de.codewing.view.GsonQuotes;
 
 /**
  * Created by codewing on 03.12.2015.
@@ -31,7 +25,7 @@ public class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        // Create data variable for sent values to server
+        // Create quotes variable for sent values to server
         String data = null;
         try {
             data = URLEncoder.encode("ids", "iso-8859-1")
@@ -44,12 +38,12 @@ public class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
         String result = "";
         BufferedReader reader = null;
 
-        // Send data
+        // Send quotes
         try {
-            // Defined URL  where to send data
+            // Defined URL  where to send quotes
             URL url = new URL("http://www.ibash.de/iphone/quotearray.php");
 
-            // Send POST data request
+            // Send POST quotes request
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -84,35 +78,14 @@ public class HTTPDownloadTaskFavi extends AsyncTask<String, Integer, String> {
         return result;
     }
 
-    // Wenn die Daten heruntergeladen wurden in die Zitate reinstecken
+    // Parse quotes and update the quotelist
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        //parse Quotes
-        Gson gson = new Gson();
-        ArrayList quotelist = new ArrayList<Quote>();
-        try {
-            JsonReader reader = new JsonReader(new StringReader(result));
-            reader.setLenient(true);
-            GsonQuotes gquotes = gson.fromJson(reader, GsonQuotes.class);
-
-            // add quotes into the table
-            for (int i = 0; i < gquotes.Inhalte.data.size(); i++) {
-
-                int ident = gquotes.Inhalte.data.get(i).ident;
-                String ts = gquotes.Inhalte.data.get(i).ts;
-                int rating = gquotes.Inhalte.data.get(i).rating;
-                String content = gquotes.Inhalte.data.get(i).content;
-                content = content.replace("[newline]", "\n");
-
-                Quote quote = new Quote(ident, ts, rating, content);
-                quotelist.add(quote);
-            }
-
-        } catch (Exception e) {
-            Log.d("ListAdapter", "Error: " + e.getMessage());
-        }
-        callbackObj.onReceiveQuotes(quotelist);
+        ParseResult<Quote> parseResult = Parser.parseQuotes(result);
+        callbackObj.onReceiveQuotes(parseResult.getElements());
     }
+
+
 }

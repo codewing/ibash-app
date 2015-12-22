@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
  
         // Locate ListView in drawer_main.xml
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
- 
-        // Set a custom shadow that overlays the main content when the drawer
+
+        // Set a custom shadow that overlays the main inhalte when the drawer
         // opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case 8:
             case R.id.drawer_item_quit:{
                 itemID = 8;
-                //ft.replace(R.id.content_frame, fragment_quit);
+                //ft.replace(R.ident.content_frame, fragment_quit);
                 finish();
             }break;
         }

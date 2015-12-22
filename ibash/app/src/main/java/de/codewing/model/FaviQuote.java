@@ -2,23 +2,23 @@ package de.codewing.model;
 
 
 public class FaviQuote {
-	protected int id;
+	protected int ident;
 	protected String ts;
 
 	public FaviQuote(){}
 
-	public FaviQuote(String ts, int id) {
+	public FaviQuote(String ts, int ident) {
 		super();
 		this.ts = ts;
-		this.id = id;
+		this.ident = ident;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdent() {
+		return ident;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdent(int ident) {
+		this.ident = ident;
 	}
 
 	public String getTs() {
