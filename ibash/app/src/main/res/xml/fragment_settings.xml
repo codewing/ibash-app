@@ -1,48 +1,54 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory 
-        android:title="@string/pref_title_listanditem"
-        android:key="pref_key_listanditem_settings">
+    <PreferenceCategory
+        android:key="pref_key_listanditem_settings"
+        android:title="@string/pref_title_listanditem">
 
-        <EditTextPreference 
+        <EditTextPreference
+            android:defaultValue="10"
+            android:inputType="number"
             android:key="pref_key_numberofitems"
             android:summary="@string/pref_summary_numberofitems"
-            android:title="@string/pref_title_numberofitems" 
-            android:inputType="number"
-            android:defaultValue="10"/>
+            android:title="@string/pref_title_numberofitems" />
 
          <CheckBoxPreference
+             android:defaultValue="true"
             android:key="pref_key_colorizerating"
-            android:title="@string/pref_title_colorize"
-            android:defaultValue="true" />
+             android:title="@string/pref_title_colorize" />
          
          <CheckBoxPreference
+             android:defaultValue="true"
             android:key="pref_key_savepageid"
-            android:title="@string/pref_title_pageid"
             android:summary="@string/pref_summary_pageid"
-            android:defaultValue="true" />
+             android:title="@string/pref_title_pageid" />
 
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_key_favi_desc"
+            android:summary="@string/pref_summary_favi_desc"
+            android:title="@string/pref_title_favi_desc" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_use_grey_text"
-            android:title="@string/pref_title_grey_text"
             android:summary="@string/pref_summary_grey_text"
-            android:defaultValue="true" />
+            android:title="@string/pref_title_grey_text" />
     </PreferenceCategory>
     
-    <PreferenceCategory 
-        android:title="@string/pref_title_misc"
-        android:key="pref_key_misc_settings">   
+    <PreferenceCategory
+        android:key="pref_key_misc_settings"
+        android:title="@string/pref_title_misc">
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_autostart"
-            android:title="@string/pref_title_autostart"
-            android:defaultValue="true" />
+            android:title="@string/pref_title_autostart" />
 
         <ListPreference
-            android:key="pref_key_home_fragment"
-            android:title="@string/pref_title_home_fragment"
-            android:summary="@string/pref_summary_home_fragment"
             android:defaultValue="0"
             android:entries="@array/HomeEntries"
-            android:entryValues="@array/HomeValues"/>
+            android:entryValues="@array/HomeValues"
+            android:key="pref_key_home_fragment"
+            android:summary="@string/pref_summary_home_fragment"
+            android:title="@string/pref_title_home_fragment" />
      </PreferenceCategory>
      
     	

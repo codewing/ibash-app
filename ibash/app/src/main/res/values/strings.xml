@@ -91,5 +91,7 @@
     <!-- Widget -->
     <string name="widget_openApp">open app</string>
     <string name="widget_loading">loading</string>
-    
+    <string name="pref_title_favi_desc">Sort favourites descending</string>
+    <string name="pref_summary_favi_desc">The favourites are sorted by the date added (Asc/Desc)</string>
+
 </resources>

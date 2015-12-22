@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.codewing.controller.callbacks.QuotesCallback;
@@ -35,6 +36,7 @@ import de.codewing.ibash.R;
 import de.codewing.model.FaviQuote;
 import de.codewing.model.Quote;
 import de.codewing.sqlite.SQLiteHelper;
+import de.codewing.utils.FaviQuoteComparator;
 import de.codewing.utils.HTTPDownloadTaskFavi;
 import de.codewing.utils.ParseResult;
 import de.codewing.utils.Parser;
@@ -177,14 +179,18 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         dl.execute(getFaviIDs(pageNumber));
     }
 
-    private String getFaviIDs(int pageNumber){
+    private List<FaviQuote> getFaviQuoteList(int pageNumber) {
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(activity);
         String displayed_items = sharedPref.getString("pref_key_numberofitems",
                 "10");
 
         SQLiteHelper database = new SQLiteHelper(activity);
-        List<FaviQuote> fqlist = database.getFaviQuotes(Integer.parseInt(displayed_items), pageNumber);
+        return database.getFaviQuotes(Integer.parseInt(displayed_items), pageNumber);
+    }
+
+    private String getFaviIDs(int pageNumber) {
+        List<FaviQuote> fqlist = getFaviQuoteList(pageNumber);
 
         String ids = "";
         for (int i = 0; i < fqlist.size(); i++) {
@@ -263,6 +269,11 @@ public class CustomListAdapter extends BaseAdapter implements QuotesCallback, On
         listview.setEmptyView(activity.findViewById(R.id.empty_List));
         // Visibility 8 = Invis + no space
         activity.findViewById(R.id.loadingCircle).setVisibility(View.INVISIBLE);
+        Log.d("Type: ", type);
+        if ("favourites".equals(type)) {
+            List<FaviQuote> faviQuotes = getFaviQuoteList(page);
+            Collections.sort(quotelist, new FaviQuoteComparator(faviQuotes, activity));
+        }
 
         mAdapter.notifyDataSetChanged();
 

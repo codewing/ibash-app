@@ -90,4 +90,6 @@
     <!-- Widget -->
     <string name="widget_openApp">App öffnen</string>
     <string name="widget_loading">lädt</string>
+    <string name="pref_title_favi_desc">Favoriten absteigend sortieren</string>
+    <string name="pref_summary_favi_desc">Die Favoriten werden nach dem Datum sortiert, an dem sie hinzugefügt werden</string>
 </resources>
