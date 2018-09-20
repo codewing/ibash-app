@@ -1,5 +1,5 @@
 # Built application files
-ibash/*/build/
+ibash/**/build/
 
 # Crashlytics configuations
 ibash/com_crashlytics_export_strings.xml
@@ -14,17 +14,7 @@ ibash/.gradle/
 ibash/.signing/
 
 # User-specific configurations
-ibash/.idea/libraries/
-ibash/.idea/workspace.xml
-ibash/.idea/tasks.xml
-ibash/.idea/.name
-ibash/.idea/compiler.xml
-ibash/.idea/copyright/profiles_settings.xml
-ibash/.idea/encodings.xml
-ibash/.idea/misc.xml
-ibash/.idea/modules.xml
-ibash/.idea/scopes/scope_settings.xml
-ibash/.idea/vcs.xml
+ibash/.idea
 ibash/*.iml
 
 # OS-specific files
