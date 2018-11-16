@@ -3,7 +3,7 @@
 
     <string name="app_name">ibash</string>
     <string name="action_settings">Einstellungen</string>
-    <string name="update_news">Version 3.1 (10):\n\nZitatsuche nach id mit #id1,id2,&#8230;\n\n Textfarbe in den Einstellungen wählbar (grau - schwarz)</string>
+    <string name="update_news">Version 3.1.1 (11):\n\nAndroid 8.1\n\nZitatsuche nach id mit #id1,id2,&#8230;\n\n Textfarbe in den Einstellungen wählbar (grau - schwarz)</string>
     
     <!-- ListView_Extention Buttons + Messages -->
     <string name="plus">+</string>

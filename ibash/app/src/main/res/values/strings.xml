@@ -4,7 +4,7 @@
     <string name="app_name">ibash</string>
     <string name="action_settings">Settings</string>
 
-    <string name="update_news">Version 3.1 (10):\n\nSearch by id with #id1,id2,&#8230;\n\nSelect the color of the text in the settings (grey - black)</string>
+    <string name="update_news">Version 3.1 (11):\n\nAndroid 8.1\n\nSearch by id with #id1,id2,&#8230;\n\nSelect the color of the text in the settings (grey - black)</string>
     
     <!-- ListView_Extention Buttons + Messages -->
     <string name="plus">+</string>
