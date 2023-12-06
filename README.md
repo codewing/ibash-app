@@ -10,8 +10,11 @@ An app for viewing the quotes on ibash.de on an android device.
 
 ### Contribution guidelines ###
 
-* Clean Code!
+Your code should be 
+
+- easy to understand
+- easy to maintain
 
 ### Who do I talk to? ###
 
-* [codewing](https://bitbucket.org/codewing/)
+* [codewing](https://github.com/codewing/)
